@@ -1,0 +1,161 @@
+Initialize engine version: 5.6.1f1 (2860b30f0b54)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+    Driver:   22.21.13.8165
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.015 seconds
+Platform assembly: C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Shay\Documents\Red Helm repo\Progressive 2D RPG\buildd_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3520x1080 at -1600,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.324544 ms
+mouse pos  x: 121.5412  y: 50.51416 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Scene 'training' couldn't be loaded because it has not been added to the build settings or the AssetBundle has not been loaded.
+To add a scene to the build settings use the menu File->Build Settings...
+ 
+(Filename:  Line: 137)
+
+mouse pos  x: 120.2366  y: 53.12346 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Scene 'training' couldn't be loaded because it has not been added to the build settings or the AssetBundle has not been loaded.
+To add a scene to the build settings use the menu File->Build Settings...
+ 
+(Filename:  Line: 137)
+
+mouse pos  x: 122.0631  y: 52.6016 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Scene 'training' couldn't be loaded because it has not been added to the build settings or the AssetBundle has not been loaded.
+To add a scene to the build settings use the menu File->Build Settings...
+ 
+(Filename:  Line: 137)
+
+mouse pos  x: 98.84037  y: 37.46771 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: 98.57944  y: 36.68492 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: 98.31852  y: 35.11934 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: 97.79665  y: 38.2505 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: 99.88409  y: 39.03328 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: -1.356426  y: 0.937623 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: -0.5736334  y: -1.671668 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: 0.7310075  y: -1.149812 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Hit 'Training'  x: 0  y: -0.02
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: 0.4700767  y: -0.6279469 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Hit 'Training'  x: 0  y: -0.02
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: 0.2091459  y: -0.1060903 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Hit 'Training'  x: 0  y: -0.02
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: -0.5736334  y: 0.6766988 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Hit 'Training'  x: 0  y: -0.02
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: -2.400136  y: 2.764125 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: -3.443859  y: 3.025058 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Hit 'Arena'  x: -3.85  y: 2.98
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: -3.70479  y: 3.025058 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Hit 'Arena'  x: -3.85  y: 2.98
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: 3.601233  y: 3.025058 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+mouse pos  x: 127.5426  y: 48.1658 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Scene 'training' couldn't be loaded because it has not been added to the build settings or the AssetBundle has not been loaded.
+To add a scene to the build settings use the menu File->Build Settings...
+ 
+(Filename:  Line: 137)
+
+mouse pos  x: 125.4551  y: 54.68903 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Scene 'training' couldn't be loaded because it has not been added to the build settings or the AssetBundle has not been loaded.
+To add a scene to the build settings use the menu File->Build Settings...
+ 
+(Filename:  Line: 137)
+
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 2340 -> priority: 1 
+  Thread -> id: 1d10 -> priority: 1 
+  Thread -> id: 136c -> priority: 1 
+  Thread -> id: 1df0 -> priority: 1 
