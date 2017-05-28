@@ -2,6 +2,8 @@
 
 public class StatsManager : MonoBehaviour {
 
+    private int charLevel;
+
     private int vitality;
     private int strength;
     private int intelligence;
