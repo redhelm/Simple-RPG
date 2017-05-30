@@ -24,6 +24,7 @@ public class EmitterBehavior : MonoBehaviour {
 
     void Fire() {
         GameObject obj = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+        obj.gameObject.GetComponent<ProjectileBehavior>().projectileSpeed = projectileSpeed;
     }
 
 }

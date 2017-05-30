@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileBehavior : MonoBehaviour {
 
     GameObject playerObj;
+    public float projectileSpeed = 10f;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +14,6 @@ public class ProjectileBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), playerObj.transform.position, 3 * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), playerObj.transform.position, projectileSpeed * Time.deltaTime);
 	}
 }
