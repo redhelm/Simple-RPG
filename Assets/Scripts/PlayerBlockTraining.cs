@@ -14,4 +14,8 @@ public class PlayerBlockTraining : MonoBehaviour {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
 	}
+
+    void OnTriggerEnter2D(Collider2D collider) {
+        Destroy(collider.gameObject);
+    }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class EmitterBehavior : MonoBehaviour {
 
     public GameObject projectile;
-    public GameObject playerObj;
     public float projectileSpeed = 10f;
     public float shotsPerSecond = 0.5f;
 
@@ -24,9 +23,7 @@ public class EmitterBehavior : MonoBehaviour {
     }
 
     void Fire() {
-        //GameObject obj = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
-        GameObject obj = Instantiate(projectile, transform.position, Quaternion.LookRotation(Vector3.forward, playerObj.transform.position - transform.position)) as GameObject;
-        obj.GetComponent<Rigidbody2D>().velocity = new Vector2(1, projectileSpeed);
+        GameObject obj = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
     }
 
 }
