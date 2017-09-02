@@ -5,13 +5,13 @@ using UnityEngine;
 public class ProjectileBehavior : MonoBehaviour {
 
     GameObject playerObj;
-    GameObject scoreManager;
+    GameObject trainingLvl;
     public float projectileSpeed = 10f;
 
 	// Use this for initialization
 	void Start () {
         playerObj = GameObject.Find("PlayerObj");
-        scoreManager = GameObject.Find("ScoreManager");
+        trainingLvl = GameObject.Find("BlockTrainingManager");
 	}
 	
 	// Update is called once per frame
@@ -23,10 +23,10 @@ public class ProjectileBehavior : MonoBehaviour {
     {
         if (collider.gameObject.name == "Shield")
         {
-            scoreManager.GetComponent<ScoreManager>().increaseScore();
+            trainingLvl.GetComponent<BlockTraining>().block();
         }
         else {
-            scoreManager.GetComponent<ScoreManager>().resetScore();
+            trainingLvl.GetComponent<TrainingLvl>().resetScore();
         }
         
      //   collider.GetType

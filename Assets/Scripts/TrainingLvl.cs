@@ -1,21 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrainingLvl : MonoBehaviour {
 
+    public Text scoreText;
+    public Text skillIncreaseText;
+
+    private int score = 0;
+    private int max = 100;
+
     private int scoreAmount;
     private int bonusScoreAmount;
+
     private int statsScoreIncrement;
     private int totalStatsScore;
+
     private int levelDifficultry;
 
     // Use this for initialization
     void Start () {
-		
-	}
 
-    public void setStatsIncrement(int statsScoreIncrement)
+    }
+    
+    public void Update () {
+        scoreText.GetComponent<Text>().text = score.ToString();
+        skillIncreaseText.GetComponent<Text>().text = totalStatsScore.ToString();
+    }
+
+    public void resetScore()
+    {
+        score = 0;
+    }
+
+    public void increaseScore()
+    {
+        score += scoreAmount;
+
+        if (score >= max)
+        {
+            resetScore();
+            increaseStatsScore();
+        }
+    }
+
+    public void increaseStatsScore()
+    {
+        totalStatsScore += statsScoreIncrement;
+        levelDifficultry++;
+    }
+
+    public void setStatsScoreIncrement(int statsScoreIncrement)
     {
         this.statsScoreIncrement = statsScoreIncrement;
     }
@@ -30,12 +66,4 @@ public class TrainingLvl : MonoBehaviour {
         this.bonusScoreAmount = bonusScoreAmount;
     }
 
-    public void increaseStatsScore() {
-
-    }
-
-    public int getScoreAmount() {
-        return scoreAmount;
-    }
-    
 }
