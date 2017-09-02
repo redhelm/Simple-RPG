@@ -7,6 +7,7 @@ public class ProjectileBehavior : MonoBehaviour {
     GameObject playerObj;
     GameObject trainingLvl;
     public float projectileSpeed = 10f;
+    public bool isBonus;
 
 	// Use this for initialization
 	void Start () {
@@ -23,10 +24,22 @@ public class ProjectileBehavior : MonoBehaviour {
     {
         if (collider.gameObject.name == "Shield")
         {
-            trainingLvl.GetComponent<BlockTraining>().block();
+            if (!isBonus)
+            {
+                trainingLvl.GetComponent<BlockTraining>().block();
+            }
+                
         }
         else {
-            trainingLvl.GetComponent<TrainingLvl>().resetScore();
+            if (isBonus)
+            {
+                trainingLvl.GetComponent<TrainingLvl>().increaseScore(isBonus);
+            }
+            else
+            {
+                trainingLvl.GetComponent<TrainingLvl>().resetScore();
+            }
+            
         }
         
      //   collider.GetType

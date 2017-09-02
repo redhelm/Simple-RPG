@@ -27,6 +27,6 @@ public class BlockTraining : TrainingLvl {
 
     public void block()
     {
-        increaseScore();
+        increaseScore(false);
     }
 }

@@ -34,9 +34,9 @@ public class TrainingLvl : MonoBehaviour {
         score = 0;
     }
 
-    public void increaseScore()
+    public void increaseScore(bool isBonus)
     {
-        score += scoreAmount;
+        score += isBonus ? bonusScoreAmount : scoreAmount;
 
         if (score >= max)
         {
