@@ -47,6 +47,7 @@ public class TrainingLvl : MonoBehaviour {
     void OnGUI()
     {
         GUI.Box(bgBarRect, GUIContent.none);
+        GUI.DrawTexture(progressBarRect, barImg);
     }
 
     public void resetScore(int rollover)
