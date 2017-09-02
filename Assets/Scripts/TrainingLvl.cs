@@ -29,6 +29,11 @@ public class TrainingLvl : MonoBehaviour {
         skillIncreaseText.GetComponent<Text>().text = totalStatsScore.ToString();
     }
 
+    public void resetScore(int rollover)
+    {
+        score = 0 + rollover; // just making it readable ;)
+    }
+
     public void resetScore()
     {
         score = 0;
@@ -40,7 +45,8 @@ public class TrainingLvl : MonoBehaviour {
 
         if (score >= max)
         {
-            resetScore();
+            int rollover = score - max;
+            resetScore(rollover);
             increaseStatsScore();
         }
     }
