@@ -8,11 +8,6 @@ public class BlockTraining : TrainingLvl {
     public int blockBonusScoreAmount = 25;
     public int blockSkillIncrement = 5;
     private string stat = "Block";
-
-    public void block()
-    {
-        increaseScore(false);
-    }
     
     public BlockTraining()
     {

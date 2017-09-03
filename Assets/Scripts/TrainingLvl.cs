@@ -11,12 +11,15 @@ public class TrainingLvl : MonoBehaviour {
 
     public Text scoreText;
     public Text skillIncreaseText;
+    public Text comboText;
 
     private int score = 0;
     private int max = 100;
 
     private int scoreAmount;
     private int bonusScoreAmount;
+    private int currentCombo;
+    private int highestCombo;
 
     private string stat;
     private int statsScoreIncrement;
@@ -35,12 +38,13 @@ public class TrainingLvl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         statsManager = GameObject.FindWithTag("Player").GetComponent<StatsManager>();
-        Debug.Log(statsManager);
+        highestCombo = PlayerPrefs.GetInt("Block Highest Combo");
     }
     
     void Update () {
         scoreText.GetComponent<Text>().text = score.ToString();
         skillIncreaseText.GetComponent<Text>().text = totalStatsScore.ToString();
+        comboText.GetComponent<Text>().text = "x" + currentCombo.ToString();
 
         if (score >= 0)
             progressBarRect.width = score * bgBarRect.width / max;
@@ -65,6 +69,7 @@ public class TrainingLvl : MonoBehaviour {
     public void increaseScore(bool isBonus)
     {
         score += isBonus ? bonusScoreAmount : scoreAmount;
+        incCombo(isBonus);
 
         if (score >= max)
         {
@@ -79,6 +84,29 @@ public class TrainingLvl : MonoBehaviour {
         totalStatsScore += statsScoreIncrement;
         statsManager.IncreaseStat(stat, statsScoreIncrement, true);
         difficultyLvl++;
+    }
+
+    public void incCombo(bool isBonus)
+    {
+        if (!isBonus)
+        {
+            currentCombo++;
+        }
+        else
+        {
+            currentCombo += 2;
+        }
+
+        if(currentCombo > highestCombo)
+        {
+            PlayerPrefs.SetInt("Block Highest Combo", currentCombo);
+            highestCombo = currentCombo;
+        }
+    }
+
+    public void resetCombo()
+    {
+        currentCombo = 0;
     }
 
     public void setStatsScoreIncrement(int statsScoreIncrement)

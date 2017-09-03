@@ -51,7 +51,7 @@ public class ProjectileBehavior : MonoBehaviour {
         {
             if (!isBonus)
             {
-                trainingLvl.GetComponent<BlockTraining>().block();
+                trainingLvl.GetComponent<BlockTraining>().increaseScore(isBonus);
             }
 
             deflectedTime = Time.time;
@@ -60,11 +60,12 @@ public class ProjectileBehavior : MonoBehaviour {
         else {
             if (isBonus)
             {
-                trainingLvl.GetComponent<TrainingLvl>().increaseScore(isBonus);
+                trainingLvl.GetComponent<BlockTraining>().increaseScore(isBonus);
             }
             else
             {
-                trainingLvl.GetComponent<TrainingLvl>().resetScore();
+                trainingLvl.GetComponent<BlockTraining>().resetScore();
+                trainingLvl.GetComponent<BlockTraining>().resetCombo();
             }
             Destroy(gameObject);
 
