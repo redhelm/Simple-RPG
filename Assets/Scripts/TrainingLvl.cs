@@ -5,9 +5,20 @@ using UnityEngine.UI;
 
 public class TrainingLvl : MonoBehaviour {
 
+    public enum StatName
+    {
+        Vitality, Strength, Intelligence, Range, Block, Dodge, AvailablePoints
+    }
+
+    public StatName statName;
+
     public Texture2D barImg;
     Rect bgBarRect;
     Rect progressBarRect;
+
+    public int scoreAmount;
+    public int bonusScoreAmount;
+    public int statsScoreIncrement;
 
     public Text scoreText;
     public Text skillIncreaseText;
@@ -21,14 +32,10 @@ public class TrainingLvl : MonoBehaviour {
 
     private int score = 0;
     private int max = 100;
-
-    private int scoreAmount;
-    private int bonusScoreAmount;
+    
     private int currentCombo;
     private int highestCombo;
-
-    private string stat;
-    private int statsScoreIncrement;
+    
     private int totalStatsScore;
     private StatsManager statsManager;
     private int difficultyLvl;
@@ -89,7 +96,7 @@ public class TrainingLvl : MonoBehaviour {
     public void increaseStatsScore()
     {
         totalStatsScore += statsScoreIncrement;
-        statsManager.IncreaseStat(stat, statsScoreIncrement, true);
+        statsManager.IncreaseStat(statName.ToString(), statsScoreIncrement, true);
         difficultyLvl++;
     }
 
@@ -134,26 +141,6 @@ public class TrainingLvl : MonoBehaviour {
     {
         audioSource.clip = bonusSound;
         audioSource.Play();
-    }
-
-    public void setStatsScoreIncrement(int statsScoreIncrement)
-    {
-        this.statsScoreIncrement = statsScoreIncrement;
-    }
-
-    public void setScoreAmount(int scoreAmount)
-    {
-        this.scoreAmount = scoreAmount;
-    }
-
-    public void setBonusScoreAmont(int bonusScoreAmount)
-    {
-        this.bonusScoreAmount = bonusScoreAmount;
-    }
-
-    public void setStat(string stat)
-    {
-        this.stat = stat;
     }
 
 }

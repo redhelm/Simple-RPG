@@ -23,7 +23,7 @@ public class ProjectileBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerObj = GameObject.Find("PlayerObj");
-        trainingLvl = GameObject.Find("BlockTrainingManager");
+        trainingLvl = GameObject.Find("Training Manager");
 	}
 	
 	// Update is called once per frame
@@ -51,7 +51,7 @@ public class ProjectileBehavior : MonoBehaviour {
         {
             if (!isBonus)
             {
-                trainingLvl.GetComponent<BlockTraining>().increaseScore(isBonus);
+                trainingLvl.GetComponent<TrainingLvl>().increaseScore(isBonus);
             }
 
             deflectedTime = Time.time;
@@ -60,13 +60,13 @@ public class ProjectileBehavior : MonoBehaviour {
         else {
             if (isBonus)
             {
-                trainingLvl.GetComponent<BlockTraining>().increaseScore(isBonus);
+                trainingLvl.GetComponent<TrainingLvl>().increaseScore(isBonus);
             }
             else
             {
-                trainingLvl.GetComponent<BlockTraining>().resetScore();
-                trainingLvl.GetComponent<BlockTraining>().resetCombo();
-                trainingLvl.GetComponent<BlockTraining>().PlayComboReset();
+                trainingLvl.GetComponent<TrainingLvl>().resetScore();
+                trainingLvl.GetComponent<TrainingLvl>().resetCombo();
+                trainingLvl.GetComponent<TrainingLvl>().PlayComboReset();
             }
             Destroy(gameObject);
 
