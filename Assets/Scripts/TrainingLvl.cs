@@ -13,6 +13,12 @@ public class TrainingLvl : MonoBehaviour {
     public Text skillIncreaseText;
     public Text comboText;
 
+    public AudioClip comboHitSound;
+    public AudioClip comboResetSound;
+    public AudioClip bonusSound;
+    public AudioClip[] otherSounds;
+    private AudioSource audioSource;
+
     private int score = 0;
     private int max = 100;
 
@@ -39,6 +45,7 @@ public class TrainingLvl : MonoBehaviour {
     void Start () {
         statsManager = GameObject.FindWithTag("Player").GetComponent<StatsManager>();
         highestCombo = PlayerPrefs.GetInt("Block Highest Combo");
+        audioSource = GetComponent<AudioSource>();
     }
     
     void Update () {
@@ -91,10 +98,12 @@ public class TrainingLvl : MonoBehaviour {
         if (!isBonus)
         {
             currentCombo++;
+            PlayComboHit();
         }
         else
         {
             currentCombo += 2;
+            PlayBonus();
         }
 
         if(currentCombo > highestCombo)
@@ -107,6 +116,24 @@ public class TrainingLvl : MonoBehaviour {
     public void resetCombo()
     {
         currentCombo = 0;
+    }
+
+    public void PlayComboHit()
+    {
+        audioSource.clip = comboHitSound;
+        audioSource.Play();
+    }
+
+    public void PlayComboReset()
+    {
+        audioSource.clip = comboResetSound;
+        audioSource.Play();
+    }
+    
+    public void PlayBonus()
+    {
+        audioSource.clip = bonusSound;
+        audioSource.Play();
     }
 
     public void setStatsScoreIncrement(int statsScoreIncrement)
