@@ -9,12 +9,10 @@ public class StatButton : MonoBehaviour {
     }
 
     public StatName statName;
-    private string statNameString;
     private StatsManager statsManager;
 
     void Awake() {
         statsManager = FindObjectOfType<StatsManager>().GetComponent<StatsManager>();
-        statNameString = statName.ToString();
     }
 
     void Update() {
@@ -24,7 +22,7 @@ public class StatButton : MonoBehaviour {
     }
 
     public void ModifyStat() {
-        statsManager.IncreaseStat(statNameString, 1);
+        statsManager.IncreaseStat(statName.ToString(), 1, false);
     }
 
 }

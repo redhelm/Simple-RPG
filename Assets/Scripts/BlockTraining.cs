@@ -7,26 +7,19 @@ public class BlockTraining : TrainingLvl {
     public int blockScoreAmount = 10;
     public int blockBonusScoreAmount = 25;
     public int blockSkillIncrement = 5;
-
-	// Use this for initialization
-	void Start () {
-        setScoreAmount(blockScoreAmount);
-        setBonusScoreAmont(blockBonusScoreAmount);
-        setStatsScoreIncrement(blockSkillIncrement);
-	}
-
-    // Update is called once per frame
-    new 
-    void Update()
-    {
-        base.Update();
-        
-        //Do stuff here which is specific to the type of training lvl..
-
-    }
+    private string stat = "Block";
 
     public void block()
     {
         increaseScore(false);
     }
+    
+    public BlockTraining()
+    {
+        setScoreAmount(blockScoreAmount);
+        setBonusScoreAmont(blockBonusScoreAmount);
+        setStatsScoreIncrement(blockSkillIncrement);
+        setStat(stat);
+    }
+
 }

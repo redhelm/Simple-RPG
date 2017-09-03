@@ -104,8 +104,8 @@ public class StatsManager : MonoBehaviour {
         }
         return statValue;
     }
-    public void IncreaseStat(string stat, int points) {
-        if (availablePoints >= points) {
+    public void IncreaseStat(string stat, int points, bool isTraining) {
+        if (availablePoints >= points || isTraining == true) {
             switch (stat) {
                 case "Vitality":
                     vitality += points;
@@ -126,7 +126,11 @@ public class StatsManager : MonoBehaviour {
                     dodge += points;
                     break;
             }
-            availablePoints -= points;
+
+            if (!isTraining)
+                availablePoints -= points;
+
+            Debug.Log("Increased '" + stat + "' to: " + getStat(stat));
         }
         
     }

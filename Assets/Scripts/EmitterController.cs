@@ -20,7 +20,6 @@ public class EmitterController : MonoBehaviour {
 	void Start () {
 
         emitters = FindObjectsOfType(typeof(Emitter)) as Emitter[];
-        Debug.Log("Found " + emitters.Length + " instances with this script attached");
 
     }
 	

@@ -18,9 +18,10 @@ public class TrainingLvl : MonoBehaviour {
     private int scoreAmount;
     private int bonusScoreAmount;
 
+    private string stat;
     private int statsScoreIncrement;
     private int totalStatsScore;
-
+    private StatsManager statsManager;
     private int difficultyLvl;
 
     void Awake()
@@ -33,10 +34,11 @@ public class TrainingLvl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        statsManager = GameObject.FindWithTag("Player").GetComponent<StatsManager>();
+        Debug.Log(statsManager);
     }
     
-    public void Update () {
+    void Update () {
         scoreText.GetComponent<Text>().text = score.ToString();
         skillIncreaseText.GetComponent<Text>().text = totalStatsScore.ToString();
 
@@ -75,6 +77,7 @@ public class TrainingLvl : MonoBehaviour {
     public void increaseStatsScore()
     {
         totalStatsScore += statsScoreIncrement;
+        statsManager.IncreaseStat(stat, statsScoreIncrement, true);
         difficultyLvl++;
     }
 
@@ -91,6 +94,11 @@ public class TrainingLvl : MonoBehaviour {
     public void setBonusScoreAmont(int bonusScoreAmount)
     {
         this.bonusScoreAmount = bonusScoreAmount;
+    }
+
+    public void setStat(string stat)
+    {
+        this.stat = stat;
     }
 
 }
