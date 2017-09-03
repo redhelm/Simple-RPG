@@ -66,6 +66,7 @@ public class ProjectileBehavior : MonoBehaviour {
             {
                 trainingLvl.GetComponent<BlockTraining>().resetScore();
                 trainingLvl.GetComponent<BlockTraining>().resetCombo();
+                trainingLvl.GetComponent<BlockTraining>().PlayComboReset();
             }
             Destroy(gameObject);
 
