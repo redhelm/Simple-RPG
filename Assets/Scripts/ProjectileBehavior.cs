@@ -6,8 +6,19 @@ public class ProjectileBehavior : MonoBehaviour {
 
     GameObject playerObj;
     GameObject trainingLvl;
+
     public float projectileSpeed = 10f;
     public bool isBonus;
+
+    private bool isDeflected = false;
+    private Vector2 startPosition;
+    private float deflectedTime;
+    private float destroyTime = 0.25f;
+
+    void Awake()
+    {
+        startPosition = transform.position;
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -17,8 +28,22 @@ public class ProjectileBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), playerObj.transform.position, projectileSpeed * Time.deltaTime);
-	}
+
+        if (!isDeflected)
+        {
+            transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), playerObj.transform.position, projectileSpeed * Time.deltaTime);
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), startPosition, (projectileSpeed * 1.5f)  * Time.deltaTime);
+
+            if ((Time.time - deflectedTime) > destroyTime)
+            {
+                Destroy(gameObject);
+            }
+        }
+        
+    }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
@@ -28,7 +53,9 @@ public class ProjectileBehavior : MonoBehaviour {
             {
                 trainingLvl.GetComponent<BlockTraining>().block();
             }
-                
+
+            deflectedTime = Time.time;
+            isDeflected = true;
         }
         else {
             if (isBonus)
@@ -39,11 +66,9 @@ public class ProjectileBehavior : MonoBehaviour {
             {
                 trainingLvl.GetComponent<TrainingLvl>().resetScore();
             }
-            
+            Destroy(gameObject);
+
         }
         
-     //   collider.GetType
-
-        Destroy(gameObject);
     }
 }
