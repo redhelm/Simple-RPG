@@ -23,7 +23,7 @@ public class ProjectileBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerObj = GameObject.Find("PlayerObj");
-        trainingLvl = GameObject.Find("Training Manager");
+        trainingLvl = GameObject.Find("Training Level Manager");
 	}
 	
 	// Update is called once per frame
@@ -64,8 +64,8 @@ public class ProjectileBehavior : MonoBehaviour {
             }
             else
             {
-                trainingLvl.GetComponent<TrainingLvl>().resetScore();
-                trainingLvl.GetComponent<TrainingLvl>().resetCombo();
+                trainingLvl.GetComponent<TrainingLvl>().ResetScore();
+                trainingLvl.GetComponent<TrainingLvl>().ResetCombo();
                 trainingLvl.GetComponent<TrainingLvl>().PlayComboReset();
             }
             Destroy(gameObject);

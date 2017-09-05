@@ -19,6 +19,8 @@ public class TrainingLvl : MonoBehaviour {
     public int scoreAmount;
     public int bonusScoreAmount;
     public int statsScoreIncrement;
+    public delegate void DifficultyChanged(int d);
+    public static event DifficultyChanged onDifficultyChanged;
 
     public Text scoreText;
     public Text skillIncreaseText;
@@ -39,6 +41,7 @@ public class TrainingLvl : MonoBehaviour {
     private int totalStatsScore;
     private StatsManager statsManager;
     private int difficultyLvl;
+    public int maxDifficultyLvl;
 
     void Awake()
     {
@@ -53,6 +56,7 @@ public class TrainingLvl : MonoBehaviour {
         statsManager = GameObject.FindWithTag("Player").GetComponent<StatsManager>();
         highestCombo = PlayerPrefs.GetInt("Block Highest Combo");
         audioSource = GetComponent<AudioSource>();
+        difficultyLvl = 1;
     }
     
     void Update () {
@@ -70,12 +74,12 @@ public class TrainingLvl : MonoBehaviour {
         GUI.DrawTexture(progressBarRect, barImg);
     }
 
-    public void resetScore(int rollover)
+    public void ResetScore(int rollover)
     {
         score = 0 + rollover; // just making it readable ;)
     }
 
-    public void resetScore()
+    public void ResetScore()
     {
         score = 0;
     }
@@ -83,24 +87,29 @@ public class TrainingLvl : MonoBehaviour {
     public void increaseScore(bool isBonus)
     {
         score += isBonus ? bonusScoreAmount : scoreAmount;
-        incCombo(isBonus);
+        IncCombo(isBonus);
 
         if (score >= max)
         {
             int rollover = score - max;
-            resetScore(rollover);
-            increaseStatsScore();
+            ResetScore(rollover);
+            IncreaseStatsScore();
         }
     }
 
-    public void increaseStatsScore()
+    public void IncreaseStatsScore()
     {
         totalStatsScore += statsScoreIncrement;
         statsManager.IncreaseStat(statName.ToString(), statsScoreIncrement, true);
-        difficultyLvl++;
+        if (difficultyLvl < maxDifficultyLvl)
+        {
+            difficultyLvl++;
+            Debug.Log("Difficulty Increased to: " + difficultyLvl);
+            onDifficultyChanged(difficultyLvl);
+        }
     }
 
-    public void incCombo(bool isBonus)
+    public void IncCombo(bool isBonus)
     {
         if (!isBonus)
         {
@@ -120,9 +129,11 @@ public class TrainingLvl : MonoBehaviour {
         }
     }
 
-    public void resetCombo()
+    public void ResetCombo()
     {
         currentCombo = 0;
+        difficultyLvl = 1;
+        onDifficultyChanged(difficultyLvl);
     }
 
     public void PlayComboHit()
@@ -141,6 +152,16 @@ public class TrainingLvl : MonoBehaviour {
     {
         audioSource.clip = bonusSound;
         audioSource.Play();
+    }
+    
+    public int getDifficultyLvl()
+    {
+        return difficultyLvl;
+    }
+    
+    public int getMaxDifficultyLvl()
+    {
+        return maxDifficultyLvl;
     }
 
 }
