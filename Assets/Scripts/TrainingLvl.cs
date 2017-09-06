@@ -10,7 +10,7 @@ public class TrainingLvl : MonoBehaviour {
         Vitality, Strength, Intelligence, Range, Block, Dodge, AvailablePoints
     }
 
-    public StatName statName;
+    public StatName statTrianing;
 
     public Texture2D barImg;
     Rect bgBarRect;
@@ -39,7 +39,6 @@ public class TrainingLvl : MonoBehaviour {
     private int highestCombo;
     
     private int totalStatsScore;
-    private StatsManager statsManager;
     private int difficultyLvl;
     public int maxDifficultyLvl;
 
@@ -53,16 +52,15 @@ public class TrainingLvl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        statsManager = GameObject.FindWithTag("Player").GetComponent<StatsManager>();
-        highestCombo = PlayerPrefs.GetInt("Block Highest Combo");
+        highestCombo = PlayerPrefs.GetInt("Block Highest Combo"); //TODO: Not use this to save..
         audioSource = GetComponent<AudioSource>();
         difficultyLvl = 1;
     }
     
     void Update () {
-        scoreText.GetComponent<Text>().text = score.ToString();
-        skillIncreaseText.GetComponent<Text>().text = totalStatsScore.ToString();
-        comboText.GetComponent<Text>().text = "x" + currentCombo.ToString();
+        scoreText.text = score.ToString();
+        skillIncreaseText.text = totalStatsScore.ToString();
+        comboText.text = "x" + currentCombo.ToString();
 
         if (score >= 0)
             progressBarRect.width = score * bgBarRect.width / max;
@@ -100,7 +98,7 @@ public class TrainingLvl : MonoBehaviour {
     public void IncreaseStatsScore()
     {
         totalStatsScore += statsScoreIncrement;
-        statsManager.IncreaseStat(statName.ToString(), statsScoreIncrement, true);
+        PlayerStats.playerStats.IncreaseStat(statTrianing.ToString(), statsScoreIncrement, true);
         if (difficultyLvl < maxDifficultyLvl)
         {
             difficultyLvl++;

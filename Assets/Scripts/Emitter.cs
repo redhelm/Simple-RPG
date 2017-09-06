@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Emitter : MonoBehaviour {
     
-    public float overrideProjectileSpeed = 0.0f;
+    public float projectileSpeed = 0.0f;
     
 	// Use this for initialization
 	void Start () {
@@ -17,9 +17,9 @@ public class Emitter : MonoBehaviour {
 
     public void Fire(GameObject projectile, float projectileSpeed) {
 
-        if (overrideProjectileSpeed > 0.0f)
+        if (this.projectileSpeed > 0.0f)
         {
-            projectileSpeed = overrideProjectileSpeed;
+            projectileSpeed = this.projectileSpeed;
         }
 
         GameObject obj = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;

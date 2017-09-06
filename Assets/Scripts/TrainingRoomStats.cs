@@ -11,7 +11,7 @@ public class TrainingRoomStats : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         i_blockHighestCombo = PlayerPrefs.GetInt("Block Highest Combo");
-        blockHighestCombo.GetComponent<Text>().text = "x" + i_blockHighestCombo.ToString();
+        blockHighestCombo.text = "x" + i_blockHighestCombo.ToString();
 	}
 	
 	// Update is called once per frame

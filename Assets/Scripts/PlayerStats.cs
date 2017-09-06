@@ -1,6 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class StatsManager : MonoBehaviour {
+[SerializeForDeserializeInto]
+public class PlayerStats : MonoBehaviour {
+
+    public static PlayerStats playerStats;
+
+    public int testingValue;
 
     private int charLevel;
 
@@ -19,8 +25,17 @@ public class StatsManager : MonoBehaviour {
     private int availablePoints;
 
     void Awake(){
-        DontDestroyOnLoad(gameObject);
-        Debug.Log("Don't destroy on load: " + name);
+
+        if(playerStats == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("Don't destroy on load: " + name);
+            playerStats = this;
+        }
+        else if(playerStats != this)
+        {
+            Destroy(gameObject);
+        }
 
         vitality = 10;
         strength = 10;

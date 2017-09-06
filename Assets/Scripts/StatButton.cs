@@ -8,21 +8,21 @@ public class StatButton : MonoBehaviour {
         Vitality, Strength, Intelligence, Range, Block, Dodge, AvailablePoints
     }
 
-    public StatName statName;
-    private StatsManager statsManager;
+    public StatName statIncrease;
+    /*//private PlayerStats playerStats;
 
     void Awake() {
-        statsManager = FindObjectOfType<StatsManager>().GetComponent<StatsManager>();
-    }
+        //playerStats = FindObjectOfType<PlayerStats>().GetComponent<PlayerStats>();
+    }*/
 
     void Update() {
-        if (statsManager.getAvailablePoints() <= 0) {
+        if (PlayerStats.playerStats.getAvailablePoints() <= 0) {
             gameObject.SetActive(false);
         }
     }
 
     public void ModifyStat() {
-        statsManager.IncreaseStat(statName.ToString(), 1, false);
+        PlayerStats.playerStats.IncreaseStat(statIncrease.ToString(), 1, false);
     }
 
 }
