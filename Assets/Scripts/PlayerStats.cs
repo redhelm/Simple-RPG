@@ -1,14 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-[SerializeForDeserializeInto]
-public class PlayerStats : MonoBehaviour {
+[Serializable]
+public class PlayerStats {
 
-    public static PlayerStats playerStats;
-
-    public int testingValue;
-
-    private int charLevel;
+    private int charLevel; // TODO: Have this mean something...
 
     private int vitality;
     private int strength;
@@ -24,19 +20,8 @@ public class PlayerStats : MonoBehaviour {
 
     private int availablePoints;
 
-    void Awake(){
-
-        if(playerStats == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            Debug.Log("Don't destroy on load: " + name);
-            playerStats = this;
-        }
-        else if(playerStats != this)
-        {
-            Destroy(gameObject);
-        }
-
+    public PlayerStats()
+    {
         vitality = 10;
         strength = 10;
         intelligence = 10;
@@ -45,13 +30,8 @@ public class PlayerStats : MonoBehaviour {
         dodge = 10;
 
         availablePoints = 14;
-        //set intial character stats?
     }
-
-    void Update() {
-        //update UI
-    }
-
+    
     private void setVitality(int n) {
         vitality = n;
     }

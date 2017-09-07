@@ -9,27 +9,28 @@ using UnityEngine.SceneManagement;
 public class GameControl : MonoBehaviour {
 
     public static GameControl control;
+    public static PlayerStats playerStats;
 
     private string fileName;
     private bool savedGameExists = false;
 
     void Awake()
     {
-        if(control == null)
-        {
+        if(control == null) //Initialize and Don't Destroy only if this is the first one :)
+        { 
             DontDestroyOnLoad(gameObject);
             control = this;
+            playerStats = new PlayerStats();
+            fileName = Application.persistentDataPath + "/playerData.dat";
+
+            if (File.Exists(fileName))
+            {
+                savedGameExists = true;
+            }
         }
         else if (control != this)
         {
             Destroy(gameObject);
-        }
-
-        fileName = Application.persistentDataPath + "/playerData.dat";
-
-        if (File.Exists(fileName))
-        {
-            savedGameExists = true;
         }
     }
 
@@ -60,7 +61,7 @@ public class GameControl : MonoBehaviour {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(fileName);
 
-            PlayerData data = new PlayerData(PlayerStats.playerStats);
+            PlayerData data = new PlayerData(playerStats);
 
             bf.Serialize(file, data);
             file.Close();
@@ -78,14 +79,14 @@ public class GameControl : MonoBehaviour {
             PlayerData data = (PlayerData)bf.Deserialize(file);
             file.Close();
 
-            PlayerStats.playerStats = data.getPlayerStats();
+            playerStats = data.getPlayerStats();
         }
         
     }
 
 }
 
-[Serializable] // Doesn't work yet.. :(
+[Serializable]
 class PlayerData
 {
     PlayerStats stats;

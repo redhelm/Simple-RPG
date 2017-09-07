@@ -98,7 +98,7 @@ public class TrainingLvl : MonoBehaviour {
     public void IncreaseStatsScore()
     {
         totalStatsScore += statsScoreIncrement;
-        PlayerStats.playerStats.IncreaseStat(statTrianing.ToString(), statsScoreIncrement, true);
+        GameControl.playerStats.IncreaseStat(statTrianing.ToString(), statsScoreIncrement, true);
         if (difficultyLvl < maxDifficultyLvl)
         {
             difficultyLvl++;
