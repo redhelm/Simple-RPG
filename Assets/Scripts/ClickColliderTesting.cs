@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class levelLoader : MonoBehaviour {
+public class ClickColliderTesting : MonoBehaviour {
     
     private Vector2 mousePos;
     private Collider2D hitCollider;

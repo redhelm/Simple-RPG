@@ -21,8 +21,6 @@ public class LevelManager : MonoBehaviour {
 
     public void LoadLevel(string levelName) {
         SceneManager.LoadScene(levelName);
-        Debug.Log("Scene: " + SceneManager.GetActiveScene().name);
-        //SceneManager.activeSceneChanged
     }
 
     public void LoadNextLevel() {

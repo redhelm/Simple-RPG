@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileBehavior : MonoBehaviour {
 
     GameObject playerObj;
-    GameObject trainingLvl;
+    TrainingLvl trainingLvl;
 
     public float projectileSpeed = 10f;
     public bool isBonus;
@@ -23,7 +23,7 @@ public class ProjectileBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerObj = GameObject.Find("PlayerObj");
-        trainingLvl = GameObject.Find("Training Level Manager");
+        trainingLvl = GameObject.Find("Training Level Manager").GetComponent<TrainingLvl>();
 	}
 	
 	// Update is called once per frame
@@ -51,7 +51,7 @@ public class ProjectileBehavior : MonoBehaviour {
         {
             if (!isBonus)
             {
-                trainingLvl.GetComponent<TrainingLvl>().increaseScore(isBonus);
+                trainingLvl.increaseScore(isBonus);
             }
 
             deflectedTime = Time.time;
@@ -60,16 +60,15 @@ public class ProjectileBehavior : MonoBehaviour {
         else {
             if (isBonus)
             {
-                trainingLvl.GetComponent<TrainingLvl>().increaseScore(isBonus);
+                trainingLvl.increaseScore(isBonus);
             }
             else
             {
-                trainingLvl.GetComponent<TrainingLvl>().ResetScore();
-                trainingLvl.GetComponent<TrainingLvl>().ResetCombo();
-                trainingLvl.GetComponent<TrainingLvl>().PlayComboReset();
+                trainingLvl.ResetScore();
+                trainingLvl.ResetCombo();
+                trainingLvl.PlayComboReset();
             }
             Destroy(gameObject);
-
         }
         
     }
