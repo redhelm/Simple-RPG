@@ -6,6 +6,9 @@ public class RangeTraining : MonoBehaviour {
 
     public GameObject arrow;
     public float fireDelayTime;
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot;
 
     private Vector2 mousePos;
     private Collider2D hitCollider;
@@ -14,14 +17,16 @@ public class RangeTraining : MonoBehaviour {
     // Use this for initialization
     void Start () {
         nextFire = Time.time;
+        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0) && Time.time > nextFire)
+        if (Input.GetMouseButtonUp(0) && Time.time > nextFire)
         {
             Fire();
             nextFire = Time.time + fireDelayTime;
+            // TODO: Play Bow Animation
         }
     }
 
