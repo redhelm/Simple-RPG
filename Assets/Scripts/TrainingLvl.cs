@@ -12,6 +12,8 @@ public class TrainingLvl : MonoBehaviour {
 
     public StatName statTrianing;
 
+    public static TrainingLvl trainingLvl;
+
     public Texture2D barImg;
     Rect bgBarRect;
     Rect progressBarRect;
@@ -44,6 +46,7 @@ public class TrainingLvl : MonoBehaviour {
 
     void Awake()
     {
+        trainingLvl = this;
         float barWidth = Screen.width * 0.5f; //made float so it's easy to change size if needed, instead of simply dividing by 2.
         float marginX = (Screen.width - barWidth) / 2;
         bgBarRect = new Rect(marginX, 12, barWidth, 24);

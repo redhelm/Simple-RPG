@@ -6,7 +6,7 @@ public class editorMarker : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
 	}
 	
 }

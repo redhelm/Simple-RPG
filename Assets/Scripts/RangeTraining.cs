@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class RangeTraining : MonoBehaviour {
 
+    public static RangeTraining rangeTraining;
+
     public GameObject arrow;
+    public float arrowTravelTime;
     public float fireDelayTime;
+    public float targetDieTime;
+    public float targetShrinkTime;
     public Texture2D cursorTexture;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot;
@@ -13,6 +18,11 @@ public class RangeTraining : MonoBehaviour {
     private Vector2 mousePos;
     private Collider2D hitCollider;
     private float nextFire;
+    
+    void Awake()
+    {
+        rangeTraining = this;
+    }
 
     // Use this for initialization
     void Start () {
@@ -35,4 +45,5 @@ public class RangeTraining : MonoBehaviour {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         GameObject obj = Instantiate(arrow, mousePos, Quaternion.identity) as GameObject;
     }
+
 }

@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour {
 
-    public float arrowTravelTime;
-
-    TrainingLvl trainingLvl;
-
 	// Use this for initialization
 	void Start () {
-
-        trainingLvl = GameObject.Find("Training Level Manager").GetComponent<TrainingLvl>();
+        
         StartCoroutine(ArrowHit());
 
     }
 
     IEnumerator ArrowHit()
     {
-        yield return new WaitForSeconds(arrowTravelTime);
+        yield return new WaitForSeconds(RangeTraining.rangeTraining.arrowTravelTime);
 
         Collider2D hitCollider = Physics2D.OverlapPoint(gameObject.transform.position);
 
@@ -26,12 +21,12 @@ public class Arrow : MonoBehaviour {
         {
             if (hitCollider.name == "Bullseye")
             {
-                trainingLvl.increaseScore(true);
+                TrainingLvl.trainingLvl.increaseScore(true);
                 Destroy(hitCollider.gameObject.transform.parent.gameObject);
             }
-            else if(hitCollider.name == "Target")
+            else if(hitCollider.name == "Target(Clone)")
             {
-                trainingLvl.increaseScore(false);
+                TrainingLvl.trainingLvl.increaseScore(false);
                 Destroy(hitCollider.gameObject);
             }
             Debug.Log("You hit a " + hitCollider.name + "!");

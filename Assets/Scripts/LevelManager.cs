@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void LoadLevel(string levelName) {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         SceneManager.LoadScene(levelName);
     }
 

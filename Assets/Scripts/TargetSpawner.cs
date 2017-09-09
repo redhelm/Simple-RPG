@@ -51,4 +51,37 @@ public class TargetSpawner : MonoBehaviour {
         GameObject obj = Instantiate(target, pos, Quaternion.identity) as GameObject;
         obj.transform.localScale = scale;
     }
+
+    void OnEnable()
+    {
+        TrainingLvl.onDifficultyChanged += modifyDifficulty;
+    }
+
+    void OnDisable()
+    {
+        TrainingLvl.onDifficultyChanged -= modifyDifficulty;
+    }
+
+    void modifyDifficulty(int difficulty)
+    {
+        switch (difficulty)
+        {
+            case 1:
+                spawnRate = startSpawnRate;
+                break;
+            case 2:
+                spawnRate = startSpawnRate * 0.8f;
+                break;
+            case 3:
+                spawnRate = startSpawnRate * 0.6f;
+                break;
+            case 4:
+                spawnRate = startSpawnRate * 0.5f;
+                break;
+            default:
+                Debug.Log("No Changes for Difficulty Lvl: " + difficulty);
+                break;
+        }
+        Debug.Log("Spawn Rate: " + spawnRate);
+    }
 }
