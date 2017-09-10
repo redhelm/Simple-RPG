@@ -9,12 +9,15 @@ public class TrainingRoomStats : MonoBehaviour {
     public Text rangeHighestCombo;
     public float calcTime;
     public Text gainedScore;
+    public GameObject statsDisplayPanel;
+
+    public static int totalPointsIncreased;
+    public static string statIncreased;
 
     private int i_blockHighestCombo;
     private int i_rangeHighestCombo;
-
-    private int totalScore;
-    private int currentScore;
+    
+    private int curDispalyedScore;
     private int remainingScore;
 
 	// Use this for initialization
@@ -24,38 +27,48 @@ public class TrainingRoomStats : MonoBehaviour {
 
         blockHighestCombo.text = "x" + i_blockHighestCombo.ToString();
         rangeHighestCombo.text = "x" + i_rangeHighestCombo.ToString();
+        
+        curDispalyedScore = 0;
+        
+        Debug.Log("Points to increase: " + totalPointsIncreased);
 
-        totalScore = 50;
-        currentScore = 0;
+        if (totalPointsIncreased == 0)
+        {
+            statsDisplayPanel.SetActive(false);
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (currentScore < totalScore)
+        if (statsDisplayPanel.activeSelf && totalPointsIncreased != 0)
         {
-            
-            remainingScore = totalScore - currentScore;
-
-            calcTime = calcTime - Time.deltaTime;
-
-            if (calcTime < 0)
+            if (curDispalyedScore < totalPointsIncreased)
             {
-                calcTime = 0;
+                remainingScore = totalPointsIncreased - curDispalyedScore;
+
+                calcTime = calcTime - Time.deltaTime;
+
+                if (calcTime < 0)
+                {
+                    calcTime = 0;
+                }
+
+                float increment = remainingScore / (calcTime / Time.deltaTime);
+
+                curDispalyedScore = (int)increment + curDispalyedScore;
+
+                if (curDispalyedScore > totalPointsIncreased)
+                {
+                    curDispalyedScore = totalPointsIncreased;
+                }
+
+                gainedScore.text = "+" + curDispalyedScore.ToString();
             }
-
-            float increment = remainingScore / (calcTime / Time.deltaTime);
-
-            currentScore = (int)increment + currentScore;
-
-            if (currentScore > totalScore)
+            else
             {
-                currentScore = totalScore;
+                totalPointsIncreased = 0;
             }
-
-            gainedScore.text = currentScore.ToString();
         }
-        
 		
 	}
 }

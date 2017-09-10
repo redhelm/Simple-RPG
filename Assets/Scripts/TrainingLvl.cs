@@ -58,6 +58,7 @@ public class TrainingLvl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         statName = statTraining.ToString();
+        TrainingRoomStats.statIncreased = statName;
         highestCombo = GameControl.playerStats.GetHighestCombo(statName);
         audioSource = GetComponent<AudioSource>();
         difficultyLvl = 1;
@@ -105,6 +106,7 @@ public class TrainingLvl : MonoBehaviour {
     {
         totalStatsScore += statsScoreIncrement;
         GameControl.playerStats.IncreaseStat(statName, statsScoreIncrement, true);
+        TrainingRoomStats.totalPointsIncreased = totalStatsScore;
         if (difficultyLvl < maxDifficultyLvl)
         {
             difficultyLvl++;

@@ -22,7 +22,7 @@ public class PlayerStats {
 
     private int blockTrainingHighestCombo;
     private int rangeTrainingHighestCombo;
-
+    
     public PlayerStats()
     {
         vitality = 10;
