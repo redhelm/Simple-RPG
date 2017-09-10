@@ -6,23 +6,27 @@ using UnityEngine.UI;
 public class TrainingRoomStats : MonoBehaviour {
 
     public Text blockHighestCombo;
-    private int i_blockHighestCombo;
-
+    public Text rangeHighestCombo;
+    public float calcTime;
     public Text gainedScore;
 
-    int totalScore;
-    int currentScore;
-    float transTime;
-    int remainingScore;
+    private int i_blockHighestCombo;
+    private int i_rangeHighestCombo;
+
+    private int totalScore;
+    private int currentScore;
+    private int remainingScore;
 
 	// Use this for initialization
 	void Start () {
-        i_blockHighestCombo = PlayerPrefs.GetInt("Block Highest Combo");
-        blockHighestCombo.text = "x" + i_blockHighestCombo.ToString();
+        i_blockHighestCombo = GameControl.playerStats.GetHighestCombo("Block");
+        i_rangeHighestCombo = GameControl.playerStats.GetHighestCombo("Range");
 
-        totalScore = 500;
+        blockHighestCombo.text = "x" + i_blockHighestCombo.ToString();
+        rangeHighestCombo.text = "x" + i_rangeHighestCombo.ToString();
+
+        totalScore = 50;
         currentScore = 0;
-        transTime = 1f;
 	}
 	
 	// Update is called once per frame
@@ -33,14 +37,14 @@ public class TrainingRoomStats : MonoBehaviour {
             
             remainingScore = totalScore - currentScore;
 
-            transTime = transTime - Time.deltaTime;
+            calcTime = calcTime - Time.deltaTime;
 
-            if (transTime < 0)
+            if (calcTime < 0)
             {
-                transTime = 0;
+                calcTime = 0;
             }
 
-            float increment = remainingScore / (transTime / Time.deltaTime);
+            float increment = remainingScore / (calcTime / Time.deltaTime);
 
             currentScore = (int)increment + currentScore;
 

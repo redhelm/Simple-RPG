@@ -20,6 +20,9 @@ public class PlayerStats {
 
     private int availablePoints;
 
+    private int blockTrainingHighestCombo;
+    private int rangeTrainingHighestCombo;
+
     public PlayerStats()
     {
         vitality = 10;
@@ -31,7 +34,41 @@ public class PlayerStats {
 
         availablePoints = 14;
     }
-    
+
+    public void IncreaseStat(string stat, int points, bool isTraining)
+    {
+        if (availablePoints >= points || isTraining == true)
+        {
+            switch (stat)
+            {
+                case "Vitality":
+                    vitality += points;
+                    break;
+                case "Strength":
+                    strength += points;
+                    break;
+                case "Intelligence":
+                    intelligence += points;
+                    break;
+                case "Range":
+                    range += points;
+                    break;
+                case "Block":
+                    block += points;
+                    break;
+                case "Dodge":
+                    dodge += points;
+                    break;
+            }
+
+            if (!isTraining)
+                availablePoints -= points;
+
+            Debug.Log("Increased '" + stat + "' to: " + getStat(stat));
+        }
+
+    }
+
     private void setVitality(int n) {
         vitality = n;
     }
@@ -99,34 +136,45 @@ public class PlayerStats {
         }
         return statValue;
     }
-    public void IncreaseStat(string stat, int points, bool isTraining) {
-        if (availablePoints >= points || isTraining == true) {
-            switch (stat) {
-                case "Vitality":
-                    vitality += points;
-                    break;
-                case "Strength":
-                    strength += points;
-                    break;
-                case "Intelligence":
-                    intelligence += points;
-                    break;
-                case "Range":
-                    range += points;
-                    break;
-                case "Block":
-                    block += points;
-                    break;
-                case "Dodge":
-                    dodge += points;
-                    break;
-            }
 
-            if (!isTraining)
-                availablePoints -= points;
-
-            Debug.Log("Increased '" + stat + "' to: " + getStat(stat));
+    public int GetHighestCombo(string statName)
+    {
+        switch (statName)
+        {
+            case "Block":
+                return blockTrainingHighestCombo;
+            case "Range":
+                return rangeTrainingHighestCombo;
+            default:
+                break;
         }
-        
+
+        return 0;
     }
+
+    public void SetHighestCombo(string statName, int combo)
+    {
+        switch (statName)
+        {
+            case "Block":
+                blockTrainingHighestCombo = combo;
+                break;
+            case "Range":
+                rangeTrainingHighestCombo = combo;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public int GetBlockTrainingHighestCombo()
+    {
+        return blockTrainingHighestCombo;
+    }
+
+    public int GetRangeHighestCombo()
+    {
+        return rangeTrainingHighestCombo;
+    }
+
 }

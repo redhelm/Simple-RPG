@@ -10,7 +10,7 @@ public class TrainingLvl : MonoBehaviour {
         Vitality, Strength, Intelligence, Range, Block, Dodge, AvailablePoints
     }
 
-    public StatName statTrianing;
+    public StatName statTraining;
 
     public static TrainingLvl trainingLvl;
 
@@ -34,6 +34,8 @@ public class TrainingLvl : MonoBehaviour {
     public AudioClip[] otherSounds;
     private AudioSource audioSource;
 
+    private string statName;
+
     private int score = 0;
     private int max = 100;
     
@@ -55,7 +57,8 @@ public class TrainingLvl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        highestCombo = PlayerPrefs.GetInt("Block Highest Combo"); //TODO: Not use this to save..
+        statName = statTraining.ToString();
+        highestCombo = GameControl.playerStats.GetHighestCombo(statName);
         audioSource = GetComponent<AudioSource>();
         difficultyLvl = 1;
     }
@@ -101,7 +104,7 @@ public class TrainingLvl : MonoBehaviour {
     public void IncreaseStatsScore()
     {
         totalStatsScore += statsScoreIncrement;
-        GameControl.playerStats.IncreaseStat(statTrianing.ToString(), statsScoreIncrement, true);
+        GameControl.playerStats.IncreaseStat(statName, statsScoreIncrement, true);
         if (difficultyLvl < maxDifficultyLvl)
         {
             difficultyLvl++;
@@ -125,7 +128,7 @@ public class TrainingLvl : MonoBehaviour {
 
         if(currentCombo > highestCombo)
         {
-            PlayerPrefs.SetInt("Block Highest Combo", currentCombo);
+            GameControl.playerStats.SetHighestCombo(statName, currentCombo);
             highestCombo = currentCombo;
         }
     }

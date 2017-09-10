@@ -14,28 +14,38 @@ public class Arrow : MonoBehaviour {
     IEnumerator ArrowHit()
     {
         yield return new WaitForSeconds(RangeTraining.rangeTraining.arrowTravelTime);
-
-        Collider2D hitCollider = Physics2D.OverlapPoint(gameObject.transform.position);
-
-        if (hitCollider)
+        Collider2D hitCollider;
+        bool hitSomething = false; // For debug message
+        do
         {
-            if (hitCollider.name == "Bullseye")
+            hitCollider = Physics2D.OverlapPoint(gameObject.transform.position);
+
+            if (hitCollider)
             {
-                TrainingLvl.trainingLvl.increaseScore(true);
-                Destroy(hitCollider.gameObject.transform.parent.gameObject);
+                if (hitCollider.name == "Bullseye")
+                {
+                    TrainingLvl.trainingLvl.increaseScore(true);
+                    Destroy(hitCollider.gameObject.transform.parent.gameObject);
+                }
+                else if (hitCollider.tag == "Target")
+                {
+                    TrainingLvl.trainingLvl.increaseScore(false);
+                    Destroy(hitCollider.gameObject);
+                }
+                Debug.Log("You hit a " + hitCollider.name + "!");
+                hitSomething = true;
             }
-            else if(hitCollider.name == "Target(Clone)")
+            else
             {
-                TrainingLvl.trainingLvl.increaseScore(false);
-                Destroy(hitCollider.gameObject);
+                //TODO: Miss animation
+                if (!hitSomething)
+                {
+                    Debug.Log("You missed :( ....");
+                }
+                
             }
-            Debug.Log("You hit a " + hitCollider.name + "!");
-        }
-        else
-        {
-            //TODO: Miss animation
-            Debug.Log("You missed :( ....");
-        }
+        } while (hitCollider); // Do while to ensure we hit overlapping targets.
+        
         Destroy(gameObject);
     }
 

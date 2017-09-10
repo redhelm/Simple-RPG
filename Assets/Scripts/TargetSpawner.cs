@@ -11,7 +11,7 @@ public class TargetSpawner : MonoBehaviour {
     private float spawnRate;
     private float nextSpawn;
     private int lastSpawn;
-    private Vector2[] spawnPositions; 
+    private Vector2[] spawnPositions;
 
 	// Use this for initialization
 	void Start () {
@@ -68,9 +68,11 @@ public class TargetSpawner : MonoBehaviour {
         {
             case 1:
                 spawnRate = startSpawnRate;
+                RangeTraining.rangeTraining.setMovingTargets(false);
                 break;
             case 2:
                 spawnRate = startSpawnRate * 0.8f;
+                RangeTraining.rangeTraining.setMovingTargets(true);
                 break;
             case 3:
                 spawnRate = startSpawnRate * 0.6f;

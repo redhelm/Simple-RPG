@@ -11,6 +11,8 @@ public class RangeTraining : MonoBehaviour {
     public float fireDelayTime;
     public float targetDieTime;
     public float targetShrinkTime;
+    public float targetMoveChance;
+    public float targetMoveSpeed;
     public Texture2D cursorTexture;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot;
@@ -18,6 +20,7 @@ public class RangeTraining : MonoBehaviour {
     private Vector2 mousePos;
     private Collider2D hitCollider;
     private float nextFire;
+    private bool movingTargets = false;
     
     void Awake()
     {
@@ -44,6 +47,16 @@ public class RangeTraining : MonoBehaviour {
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         GameObject obj = Instantiate(arrow, mousePos, Quaternion.identity) as GameObject;
+    }
+
+    public void setMovingTargets(bool b)
+    {
+        movingTargets = b;
+    }
+
+    public bool hasMovingTargets()
+    {
+        return movingTargets;
     }
 
 }
