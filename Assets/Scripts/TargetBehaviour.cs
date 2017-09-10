@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class TargetBehaviour : MonoBehaviour {
 
-    private float dieTime;
-    private float shrinkTime;
-    private float shrinkTimeLeft;
-    private float posX;
-    private bool isMoving = false;
+    float dieTime;
+    float shrinkTime;
+    float shrinkTimeLeft;
+    float posX;
+    bool isMoving = false;
+    SpriteRenderer sprite;
+    float fadeDuration = 0.2f;
+    float startTime;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
         dieTime = RangeTraining.rangeTraining.targetDieTime;
         shrinkTime = RangeTraining.rangeTraining.targetShrinkTime;
@@ -28,11 +31,19 @@ public class TargetBehaviour : MonoBehaviour {
         {
             RollForMoving();
         }
-        
+        startTime = Time.time;
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.color = new Color(1f, 1f, 1f, 0f);
     }
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(Time.time < startTime + fadeDuration)
+        {
+            float time = (Time.time - startTime) / fadeDuration;
+            sprite.color = new Color(1f, 1f, 1f, Mathf.SmoothStep(0f, 1f, time));
+        }
 
         if (isMoving)
         {
