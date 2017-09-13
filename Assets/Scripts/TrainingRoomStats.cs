@@ -22,8 +22,8 @@ public class TrainingRoomStats : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        i_blockHighestCombo = GameControl.playerStats.GetHighestCombo("Block");
-        i_rangeHighestCombo = GameControl.playerStats.GetHighestCombo("Range");
+        i_blockHighestCombo = GameControl.player.playerStats.GetHighestCombo("Block");
+        i_rangeHighestCombo = GameControl.player.playerStats.GetHighestCombo("Range");
 
         blockHighestCombo.text = "x" + i_blockHighestCombo.ToString();
         rangeHighestCombo.text = "x" + i_rangeHighestCombo.ToString();

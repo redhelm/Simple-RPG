@@ -5,13 +5,12 @@ using UnityEngine;
 public class PlayerStats {
 
     private int charLevel; // TODO: Have this mean something...
-
-    private int vitality;
+    
     private int strength;
-    private int intelligence;
     private int range;
     private int block;
     private int dodge;
+    private int critical;
 
     private float critChance;
     private int critAmount;
@@ -22,17 +21,31 @@ public class PlayerStats {
 
     private int blockTrainingHighestCombo;
     private int rangeTrainingHighestCombo;
-    
+
+    //private int[,] unlockedSkills;
+    public static DoubleSlash asdf;
+
     public PlayerStats()
     {
-        vitality = 10;
         strength = 10;
-        intelligence = 10;
         range = 10;
         block = 10;
         dodge = 10;
+        critical = 10;
 
         availablePoints = 14;
+
+        /*unlockedSkills = new int[6, 2] { 
+            { 0, 1 }, // Skill 01
+            { 0, 1 }, // Skill 02
+            { 0, 1 }, // Skill 03
+            { 0, 1 }, // Skill 04
+            { 0, 1 }, // Skill 05
+            { 0, 1 }  // Skill 06
+        };*/
+
+        asdf = new DoubleSlash();
+        //asdf.rank = 1;
     }
 
     public void IncreaseStat(string stat, int points, bool isTraining)
@@ -41,14 +54,8 @@ public class PlayerStats {
         {
             switch (stat)
             {
-                case "Vitality":
-                    vitality += points;
-                    break;
                 case "Strength":
                     strength += points;
-                    break;
-                case "Intelligence":
-                    intelligence += points;
                     break;
                 case "Range":
                     range += points;
@@ -58,6 +65,9 @@ public class PlayerStats {
                     break;
                 case "Dodge":
                     dodge += points;
+                    break;
+                case "Critical":
+                    critical += points;
                     break;
             }
 
@@ -69,42 +79,46 @@ public class PlayerStats {
 
     }
 
-    private void setVitality(int n) {
-        vitality = n;
-    }
-    private void setStrength(int n) {
+    private void setStrength(int n)
+    {
         strength = n;
     }
-    private void setIntelligence(int n) {
-        intelligence = n;
-    }
-    private void setRange(int n) {
+    private void setRange(int n)
+    {
         range = n;
     }
-    private void setBlock(int n) {
+    private void setBlock(int n)
+    {
         block = n;
     }
-    private void setDodge(int n) {
+    private void setDodge(int n)
+    {
         dodge = n;
     }
-
-    public int getVitality() {
-        return vitality;
+    private void setCritical(int n)
+    {
+        critical = n;
     }
-    public int getStrength() {
+    
+    public int getStrength()
+    {
         return strength;
     }
-    public int getIntelligence() {
-        return intelligence;
-    }
-    public int getRange() {
+    public int getRange()
+    {
         return range;
     }
-    public int getBlock() {
+    public int getBlock()
+    {
         return block;
     }
-    public int getDodge() {
+    public int getDodge()
+    {
         return dodge;
+    }
+    public int getCritical()
+    {
+        return critical;
     }
     public int getAvailablePoints() {
         return availablePoints;
@@ -112,14 +126,8 @@ public class PlayerStats {
     public int getStat(string statName) {
         int statValue = 0;
         switch (statName) {
-            case "Vitality":
-                statValue = getVitality();
-                break;
             case "Strength":
                 statValue = getStrength();
-                break;
-            case "Intelligence":
-                statValue = getIntelligence();
                 break;
             case "Range":
                 statValue = getRange();
@@ -129,6 +137,9 @@ public class PlayerStats {
                 break;
             case "Dodge":
                 statValue = getDodge();
+                break;
+            case "Critical":
+                statValue = getCritical();
                 break;
             case "AvailablePoints":
                 statValue = getAvailablePoints();
@@ -176,5 +187,26 @@ public class PlayerStats {
     {
         return rangeTrainingHighestCombo;
     }
+
+}
+
+
+public class Skill
+{
+    public string name;
+    bool isUnlocked;
+    int rank;
+    int unlockRank;
+    float coolDownTime;
+}
+
+public class DoubleSlash : Skill
+{
+    public DoubleSlash()
+    {
+        name = "Double Slash";
+        
+    }
+
 
 }

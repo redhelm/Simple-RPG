@@ -19,6 +19,6 @@ public class StatDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		pointsText.text = GameControl.playerStats.getStat(statDisplay.ToString()).ToString();
+		pointsText.text = GameControl.player.playerStats.getStat(statDisplay.ToString()).ToString();
     }
 }

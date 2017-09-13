@@ -59,7 +59,7 @@ public class TrainingLvl : MonoBehaviour {
     void Start () {
         statName = statTraining.ToString();
         TrainingRoomStats.statIncreased = statName;
-        highestCombo = GameControl.playerStats.GetHighestCombo(statName);
+        highestCombo = GameControl.player.playerStats.GetHighestCombo(statName);
         audioSource = GetComponent<AudioSource>();
         difficultyLvl = 1;
     }
@@ -105,7 +105,7 @@ public class TrainingLvl : MonoBehaviour {
     public void IncreaseStatsScore()
     {
         totalStatsScore += statsScoreIncrement;
-        GameControl.playerStats.IncreaseStat(statName, statsScoreIncrement, true);
+        GameControl.player.playerStats.IncreaseStat(statName, statsScoreIncrement, true);
         TrainingRoomStats.totalPointsIncreased = totalStatsScore;
         if (difficultyLvl < maxDifficultyLvl)
         {
@@ -130,7 +130,7 @@ public class TrainingLvl : MonoBehaviour {
 
         if(currentCombo > highestCombo)
         {
-            GameControl.playerStats.SetHighestCombo(statName, currentCombo);
+            GameControl.player.playerStats.SetHighestCombo(statName, currentCombo);
             highestCombo = currentCombo;
         }
     }

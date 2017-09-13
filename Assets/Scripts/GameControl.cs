@@ -9,7 +9,8 @@ using UnityEngine.SceneManagement;
 public class GameControl : MonoBehaviour {
 
     public static GameControl control;
-    public static PlayerStats playerStats;
+    public static Player player;
+    //public static PlayerStats playerStats;
 
     private string fileName;
     private bool savedGameExists = false;
@@ -20,7 +21,8 @@ public class GameControl : MonoBehaviour {
         { 
             DontDestroyOnLoad(gameObject);
             control = this;
-            playerStats = new PlayerStats();
+            //playerStats = new PlayerStats();
+            player = new Player();
             fileName = Application.persistentDataPath + "/playerData.dat";
 
             if (File.Exists(fileName))
@@ -61,7 +63,7 @@ public class GameControl : MonoBehaviour {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(fileName);
 
-            PlayerData data = new PlayerData(playerStats);
+            PlayerData data = new PlayerData(player);
 
             bf.Serialize(file, data);
             file.Close();
@@ -79,7 +81,7 @@ public class GameControl : MonoBehaviour {
             PlayerData data = (PlayerData)bf.Deserialize(file);
             file.Close();
 
-            playerStats = data.getPlayerStats();
+            player = data.getPlayerData();
         }
         
     }
@@ -89,16 +91,16 @@ public class GameControl : MonoBehaviour {
 [Serializable]
 class PlayerData
 {
-    PlayerStats stats;
+    Player player;
 
-    public PlayerData(PlayerStats stats)
+    public PlayerData(Player stats)
     {
-        this.stats = stats;
+        this.player = stats;
     }
 
-    public PlayerStats getPlayerStats()
+    public Player getPlayerData()
     {
-        return stats;
+        return player;
     }
 
 }

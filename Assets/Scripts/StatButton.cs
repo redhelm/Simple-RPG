@@ -11,13 +11,13 @@ public class StatButton : MonoBehaviour {
     public StatName statIncrease;
 
     void Update() {
-        if (GameControl.playerStats.getAvailablePoints() <= 0) {
+        if (GameControl.player.playerStats.getAvailablePoints() <= 0) {
             gameObject.SetActive(false);
         }
     }
 
     public void ModifyStat() {
-        GameControl.playerStats.IncreaseStat(statIncrease.ToString(), 1, false);
+        GameControl.player.playerStats.IncreaseStat(statIncrease.ToString(), 1, false);
     }
 
 }

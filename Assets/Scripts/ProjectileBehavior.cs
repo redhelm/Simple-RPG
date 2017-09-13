@@ -23,7 +23,7 @@ public class ProjectileBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerObj = GameObject.Find("PlayerObj");
-        trainingLvl = GameObject.Find("Training Level Manager").GetComponent<TrainingLvl>();
+        trainingLvl = TrainingLvl.trainingLvl;
 	}
 	
 	// Update is called once per frame
