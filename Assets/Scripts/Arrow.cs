@@ -37,9 +37,9 @@ public class Arrow : MonoBehaviour {
             }
             else
             {
-                //TODO: Miss animation
                 if (!hitSomething)
                 {
+                    //TODO: Miss animation
                     Debug.Log("You missed :( ....");
                 }
                 

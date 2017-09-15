@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class StatDisplay : MonoBehaviour {
 
     public enum StatName{
-        Vitality, Strength, Intelligence, Range, Block, Dodge, AvailablePoints
+        Strength, Range, Block, Dodge, Critical, AvailableStatPoints, AvailableSkillPoints
     }
 
     public StatName statDisplay;

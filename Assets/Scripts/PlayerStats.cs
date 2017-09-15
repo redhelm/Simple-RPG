@@ -17,13 +17,13 @@ public class PlayerStats {
     private float rangeChance;
     private int rangeAmount;
 
-    private int availablePoints;
+    private int availableStatPoints;
+    private int availableSkillPoints;
 
     private int blockTrainingHighestCombo;
     private int rangeTrainingHighestCombo;
 
-    //private int[,] unlockedSkills;
-    public static DoubleSlash asdf;
+    private int[] unlockedSkills;
 
     public PlayerStats()
     {
@@ -33,24 +33,22 @@ public class PlayerStats {
         dodge = 10;
         critical = 10;
 
-        availablePoints = 14;
+        availableStatPoints = 14;
 
-        /*unlockedSkills = new int[6, 2] { 
-            { 0, 1 }, // Skill 01
-            { 0, 1 }, // Skill 02
-            { 0, 1 }, // Skill 03
-            { 0, 1 }, // Skill 04
-            { 0, 1 }, // Skill 05
-            { 0, 1 }  // Skill 06
-        };*/
-
-        asdf = new DoubleSlash();
-        //asdf.rank = 1;
+        unlockedSkills = new int[] { // [skillId] -> rank
+            1, // 0 - Double Slash
+            1, // 1 - Shield Bash
+            1, // 2 - Toxic Bash
+            0, // 3 - Skill 04
+            0, // 4 - Skill 05
+            0  // 5 - Skill 06
+        };
+        
     }
 
     public void IncreaseStat(string stat, int points, bool isTraining)
     {
-        if (availablePoints >= points || isTraining == true)
+        if (availableStatPoints >= points || isTraining == true)
         {
             switch (stat)
             {
@@ -72,11 +70,35 @@ public class PlayerStats {
             }
 
             if (!isTraining)
-                availablePoints -= points;
+                availableStatPoints -= points;
 
             Debug.Log("Increased '" + stat + "' to: " + getStat(stat));
         }
 
+    }
+
+    void IncreaseSkill(int skillId)
+    {
+        bool canUpgrade = false;
+
+        if (availableStatPoints > 0)
+        {
+            switch (skillId)
+            {
+                case 0:
+                    break;
+            }
+
+            if (canUpgrade)
+            {
+                unlockedSkills[skillId]++;
+            }
+        }
+    }
+
+    int GetSkillRank(int skillId)
+    {
+        return unlockedSkills[skillId];
     }
 
     private void setStrength(int n)
@@ -120,8 +142,12 @@ public class PlayerStats {
     {
         return critical;
     }
-    public int getAvailablePoints() {
-        return availablePoints;
+    public int getAvailableStatPoints() {
+        return availableStatPoints;
+    }
+    public int getAvailableSkillPoints()
+    {
+        return availableSkillPoints;
     }
     public int getStat(string statName) {
         int statValue = 0;
@@ -141,8 +167,11 @@ public class PlayerStats {
             case "Critical":
                 statValue = getCritical();
                 break;
-            case "AvailablePoints":
-                statValue = getAvailablePoints();
+            case "AvailableStatPoints":
+                statValue = getAvailableStatPoints();
+                break;
+            case "AvailableSkillPoints":
+                statValue = getAvailableSkillPoints();
                 break;
         }
         return statValue;
@@ -194,19 +223,47 @@ public class PlayerStats {
 public class Skill
 {
     public string name;
-    bool isUnlocked;
     int rank;
-    int unlockRank;
-    float coolDownTime;
+    int unlockLvl;
+    float[] coolDownTimes;
+
+
+
+    public void setRank(int r)
+    {
+        rank = r;
+    }
+    public void setUnlockLvl(int l)
+    {
+        unlockLvl = l;
+    }
+    public void setCoolDownTimes(float[] t)
+    {
+        coolDownTimes = t;
+    }
+    public int getRank()
+    {
+        return rank;
+    }
+    public int getUnlockRank()
+    {
+        return unlockLvl;
+    }
+    public float getCoolDownTime()
+    {
+        return coolDownTimes[rank-1];
+    }
 }
 
 public class DoubleSlash : Skill
 {
-    public DoubleSlash()
+    public DoubleSlash(int rank)
     {
         name = "Double Slash";
-        
+        setRank(rank);
+        setUnlockLvl(1);
+        float[] coolDownTimes = {14f};
+        setCoolDownTimes(coolDownTimes);
     }
-
 
 }

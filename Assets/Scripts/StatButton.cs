@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class StatButton : MonoBehaviour {
 
-    public enum StatName{
-        Vitality, Strength, Intelligence, Range, Block, Dodge, AvailablePoints
+    public enum StatName
+    {
+        Strength, Range, Block, Dodge, Critical, AvailableStatPoints, AvailableSkillPoints
     }
 
     public StatName statIncrease;
 
     void Update() {
-        if (GameControl.player.playerStats.getAvailablePoints() <= 0) {
+        
+        if (GameControl.player.playerStats.getAvailableStatPoints() <= 0) {
             gameObject.SetActive(false);
         }
     }
