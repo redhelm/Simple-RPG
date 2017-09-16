@@ -10,15 +10,29 @@ public class SkillRankDisplay : MonoBehaviour {
         DoubleSlash, ShieldBash, ToxicStab
     }
 
+    public SkillName skillName;
     Text text;
+    int skillId;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         text = GetComponent<Text>();
+        switch (skillName.ToString())
+        {
+            case "DoubleSlash":
+                skillId = 0;
+                break;
+            case "ShieldBash":
+                skillId = 1;
+                break;
+            case "ToxicStab":
+                skillId = 2;
+                break;
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//text.text = 
+        text.text = GameControl.player.playerStats.GetSkillRank(skillId).ToString();
 	}
 }

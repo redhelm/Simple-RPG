@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class PlayerStats {
 
-    private int charLevel; // TODO: Have this mean something...
+    private int heroLvl; // TODO: Have this mean something...
     
     private int strength;
     private int range;
@@ -12,10 +12,14 @@ public class PlayerStats {
     private int dodge;
     private int critical;
 
-    private float critChance;
-    private int critAmount;
-    private float rangeChance;
-    private int rangeAmount;
+    private int health;
+    private int meleeDmg;
+    private float rangedChance;
+    private int rangedDmg;
+    private float blockChance;
+    private float blockDmg;
+    private float dodgeChance;
+    private float criticalChance;
 
     private int availableStatPoints;
     private int availableSkillPoints;
@@ -34,6 +38,13 @@ public class PlayerStats {
         critical = 10;
 
         availableStatPoints = 14;
+        availableSkillPoints = 3; //TODO: Remove. Only for debuging for now..
+        heroLvl = 3; //TODO: Remove. Only for debuging for now..
+
+        blockDmg = 0.3f; // Default value.
+
+        CalculateMeleeDmg();
+        CalculateRangedChance();
 
         unlockedSkills = new int[] { // [skillId] -> rank
             1, // 0 - Double Slash
@@ -48,55 +59,88 @@ public class PlayerStats {
 
     public void IncreaseStat(string stat, int points, bool isTraining)
     {
+        int statValue = 0;
         if (availableStatPoints >= points || isTraining == true)
         {
             switch (stat)
             {
                 case "Strength":
                     strength += points;
+                    statValue = strength;
+                    CalculateMeleeDmg();
                     break;
                 case "Range":
                     range += points;
+                    statValue = range;
+                    CalculateRangedChance();
                     break;
                 case "Block":
                     block += points;
+                    statValue = block;
                     break;
                 case "Dodge":
                     dodge += points;
+                    statValue = dodge;
                     break;
                 case "Critical":
                     critical += points;
+                    statValue = critical;
                     break;
             }
 
             if (!isTraining)
                 availableStatPoints -= points;
 
-            Debug.Log("Increased '" + stat + "' to: " + getStat(stat));
+            Debug.Log("Increased '" + stat + "' to: " + statValue);
         }
 
     }
 
-    void IncreaseSkill(int skillId)
+    public void IncreaseSkill(int skillId)
     {
         bool canUpgrade = false;
 
-        if (availableStatPoints > 0)
+        if (availableSkillPoints > 0)
         {
             switch (skillId)
             {
                 case 0:
+                    DoubleSlash doubleSlash = new DoubleSlash(1);
+                    canUpgrade = heroLvl >= doubleSlash.getUnlockLvl() ? true : false;
+                    break;
+                case 1:
+                    ShieldBash shiieldBash = new ShieldBash(1);
+                    canUpgrade = heroLvl >= shiieldBash.getUnlockLvl() ? true : false;
+                    break;
+                case 2:
+                    ToxicStab toxicStab = new ToxicStab(1);
+                    canUpgrade = heroLvl >= toxicStab.getUnlockLvl() ? true : false;
                     break;
             }
 
             if (canUpgrade)
             {
                 unlockedSkills[skillId]++;
+                availableSkillPoints--;
             }
         }
     }
 
-    int GetSkillRank(int skillId)
+    void CalculateMeleeDmg()
+    {
+        float multiplier = heroLvl / 10f;
+        if (multiplier < 1) { multiplier += 1; }
+        meleeDmg = (int)(strength * multiplier); 
+    }
+
+    void CalculateRangedChance()
+    {
+        Debug.Log(range * 0.9f);
+        Debug.Log((range * 0.9f) * 0.00088f);
+        rangedChance = (range * 0.9f) * 0.00088f;
+    }
+
+    public int GetSkillRank(int skillId)
     {
         return unlockedSkills[skillId];
     }
@@ -149,32 +193,37 @@ public class PlayerStats {
     {
         return availableSkillPoints;
     }
-    public int getStat(string statName) {
-        int statValue = 0;
-        switch (statName) {
-            case "Strength":
-                statValue = getStrength();
-                break;
-            case "Range":
-                statValue = getRange();
-                break;
-            case "Block":
-                statValue = getBlock();
-                break;
-            case "Dodge":
-                statValue = getDodge();
-                break;
-            case "Critical":
-                statValue = getCritical();
-                break;
-            case "AvailableStatPoints":
-                statValue = getAvailableStatPoints();
-                break;
-            case "AvailableSkillPoints":
-                statValue = getAvailableSkillPoints();
-                break;
-        }
-        return statValue;
+    public int getHealth()
+    {
+        return health;
+    }
+    public int getMeleeDmg()
+    {
+        return meleeDmg;
+    }
+    public float getRangedChance()
+    {
+        return rangedChance;
+    }
+    public int getRangedDmg()
+    {
+        return rangedDmg;
+    }
+    public float getBlockChance()
+    {
+        return blockChance;
+    }
+    public float getBlockedDmg()
+    {
+        return blockDmg;
+    }
+    public float getDodgeChance()
+    {
+        return dodgeChance;
+    }
+    public float getCriticalChance()
+    {
+        return criticalChance;
     }
 
     public int GetHighestCombo(string statName)
@@ -245,7 +294,7 @@ public class Skill
     {
         return rank;
     }
-    public int getUnlockRank()
+    public int getUnlockLvl()
     {
         return unlockLvl;
     }
@@ -262,7 +311,33 @@ public class DoubleSlash : Skill
         name = "Double Slash";
         setRank(rank);
         setUnlockLvl(1);
-        float[] coolDownTimes = {14f};
+        float[] coolDownTimes = { 14f };
+        setCoolDownTimes(coolDownTimes);
+    }
+
+}
+
+public class ShieldBash : Skill
+{
+    public ShieldBash(int rank)
+    {
+        name = "Shield Bash";
+        setRank(rank);
+        setUnlockLvl(1);
+        float[] coolDownTimes = { 14f };
+        setCoolDownTimes(coolDownTimes);
+    }
+
+}
+
+public class ToxicStab : Skill
+{
+    public ToxicStab(int rank)
+    {
+        name = "Toxic Stab";
+        setRank(rank);
+        setUnlockLvl(1);
+        float[] coolDownTimes = { 14f };
         setCoolDownTimes(coolDownTimes);
     }
 
