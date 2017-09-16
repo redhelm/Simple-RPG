@@ -7,7 +7,7 @@ public class StatDisplay : MonoBehaviour {
 
     public enum StatName{
         Strength,
-        Range,
+        Accuracy,
         Block,
         Dodge,
         Critical,
@@ -39,8 +39,8 @@ public class StatDisplay : MonoBehaviour {
             case "Strength":
                 statValue = GameControl.player.playerStats.getStrength().ToString();
                 break;
-            case "Range":
-                statValue = GameControl.player.playerStats.getRange().ToString();
+            case "Accuracy":
+                statValue = GameControl.player.playerStats.getAccuracy().ToString();
                 break;
             case "Block":
                 statValue = GameControl.player.playerStats.getBlock().ToString();

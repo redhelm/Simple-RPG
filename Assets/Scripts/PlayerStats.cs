@@ -7,7 +7,7 @@ public class PlayerStats {
     private int heroLvl; // TODO: Have this mean something...
     
     private int strength;
-    private int range;
+    private int accuracy;
     private int block;
     private int dodge;
     private int critical;
@@ -25,26 +25,32 @@ public class PlayerStats {
     private int availableSkillPoints;
 
     private int blockTrainingHighestCombo;
-    private int rangeTrainingHighestCombo;
+    private int accuracyTrainingHighestCombo;
 
     private int[] unlockedSkills;
 
     public PlayerStats()
     {
-        strength = 10;
-        range = 10;
-        block = 10;
-        dodge = 10;
-        critical = 10;
+        strength = 1;
+        accuracy = 1;
+        block = 1;
+        dodge = 1;
+        critical = 1;
 
         availableStatPoints = 14;
         availableSkillPoints = 3; //TODO: Remove. Only for debuging for now..
         heroLvl = 3; //TODO: Remove. Only for debuging for now..
 
-        blockDmg = 0.3f; // Default value.
+        blockDmg = 0f; // Default value. Increases based on shield equipped
 
+        CalculateHealth();
         CalculateMeleeDmg();
         CalculateRangedChance();
+        CalculateRangedDmg();
+        CalculateBlockChance();
+        //CalculateBlockDmg
+        CalculateDodgeChance();
+        CalculateCriticalChance();
 
         unlockedSkills = new int[] { // [skillId] -> rank
             1, // 0 - Double Slash
@@ -69,22 +75,29 @@ public class PlayerStats {
                     statValue = strength;
                     CalculateMeleeDmg();
                     break;
-                case "Range":
-                    range += points;
-                    statValue = range;
+                case "Accuracy":
+                    accuracy += points;
+                    statValue = accuracy;
                     CalculateRangedChance();
+                    CalculateRangedDmg();
                     break;
                 case "Block":
                     block += points;
                     statValue = block;
+                    CalculateHealth();
+                    CalculateBlockChance();
                     break;
                 case "Dodge":
                     dodge += points;
                     statValue = dodge;
+                    CalculateHealth();
+                    CalculateDodgeChance();
                     break;
                 case "Critical":
                     critical += points;
                     statValue = critical;
+                    CalculateHealth();
+                    CalculateCriticalChance();
                     break;
             }
 
@@ -126,18 +139,71 @@ public class PlayerStats {
         }
     }
 
+    void CalculateHealth()
+    {
+        int calculationFromBlock = (int)(block * 3.15f);
+        int calculationFromDodge = (int)(dodge * 3.15f);
+        int calculationFromCritical = (int)(critical * 3.15f);
+        health = calculationFromBlock + calculationFromDodge + 15; // Taking into account starting amount (15).
+    }
+
     void CalculateMeleeDmg()
     {
-        float multiplier = heroLvl / 10f;
-        if (multiplier < 1) { multiplier += 1; }
-        meleeDmg = (int)(strength * multiplier); 
+        float calculation = ((strength * 0.9f) * 1.5f) * 0.8f;
+        calculation += 10; // Taking into account starting amount.
+        meleeDmg = (int)calculation;
     }
 
     void CalculateRangedChance()
     {
-        Debug.Log(range * 0.9f);
-        Debug.Log((range * 0.9f) * 0.00088f);
-        rangedChance = (range * 0.9f) * 0.00088f;
+        float calculation = (accuracy * 0.9f) * 0.000048f;
+        calculation += 0.07f; // Taking into account starting amount.
+        if(calculation > 0.5f)
+        {
+            calculation = 0.5f;
+        }
+        rangedChance = calculation;
+    }
+
+    void CalculateRangedDmg()
+    {
+        int calculation = (int)(((accuracy * 0.9f) * 2f) * 0.8f);
+        calculation += 15; // Taking into account starting amount.
+        Debug.Log(calculation);
+        rangedDmg = calculation;
+    }
+
+    void CalculateBlockChance()
+    {
+        float calculation = (block * 0.0003f) / 6;
+        calculation += 0.065f; // Taking into account starting amount.
+        if(calculation > 0.5f)
+        {
+            calculation = 0.5f;
+        }
+        blockChance = calculation;
+    }
+
+    void CalculateDodgeChance()
+    {
+        float calculation = (dodge * 0.9f) * 0.00004f;
+        calculation += 0.05f; // Taking into account starting amount.
+        if (calculation > 0.40f)
+        {
+            calculation = 0.40f;
+        }
+        dodgeChance = calculation;
+    }
+
+    void CalculateCriticalChance()
+    {
+        float calculation = (critical * 0.9f) * 0.00003f;
+        calculation += 0.03f; // Taking into account starting amount.
+        if (calculation > 0.3f)
+        {
+            calculation = 0.3f;
+        }
+        criticalChance = calculation;
     }
 
     public int GetSkillRank(int skillId)
@@ -149,9 +215,9 @@ public class PlayerStats {
     {
         strength = n;
     }
-    private void setRange(int n)
+    private void setAccuracy(int n)
     {
-        range = n;
+        accuracy = n;
     }
     private void setBlock(int n)
     {
@@ -170,9 +236,9 @@ public class PlayerStats {
     {
         return strength;
     }
-    public int getRange()
+    public int getAccuracy()
     {
-        return range;
+        return accuracy;
     }
     public int getBlock()
     {
@@ -232,8 +298,8 @@ public class PlayerStats {
         {
             case "Block":
                 return blockTrainingHighestCombo;
-            case "Range":
-                return rangeTrainingHighestCombo;
+            case "Accuracy":
+                return accuracyTrainingHighestCombo;
             default:
                 break;
         }
@@ -248,8 +314,8 @@ public class PlayerStats {
             case "Block":
                 blockTrainingHighestCombo = combo;
                 break;
-            case "Range":
-                rangeTrainingHighestCombo = combo;
+            case "Accuracy":
+                accuracyTrainingHighestCombo = combo;
                 break;
             default:
                 break;
@@ -261,9 +327,9 @@ public class PlayerStats {
         return blockTrainingHighestCombo;
     }
 
-    public int GetRangeHighestCombo()
+    public int GetAccuracyHighestCombo()
     {
-        return rangeTrainingHighestCombo;
+        return accuracyTrainingHighestCombo;
     }
 
 }

@@ -16,8 +16,8 @@ public class TargetBehaviour : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        dieTime = RangeTraining.rangeTraining.targetDieTime;
-        shrinkTime = RangeTraining.rangeTraining.targetShrinkTime;
+        dieTime = AccuracyTraining.accuracyTraining.targetDieTime;
+        shrinkTime = AccuracyTraining.accuracyTraining.targetShrinkTime;
 
         if(shrinkTime > dieTime)
         {
@@ -27,7 +27,7 @@ public class TargetBehaviour : MonoBehaviour {
         dieTime = Time.time + dieTime;
 
         posX = transform.position.x;
-        if (RangeTraining.rangeTraining.hasMovingTargets())
+        if (AccuracyTraining.accuracyTraining.hasMovingTargets())
         {
             RollForMoving();
         }
@@ -49,11 +49,11 @@ public class TargetBehaviour : MonoBehaviour {
         {
             if (posX <= 0) // If it's on the left, then move direction should be to the right.
             {
-                transform.position = new Vector3(transform.position.x + (RangeTraining.rangeTraining.targetMoveSpeed * Time.deltaTime), transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x + (AccuracyTraining.accuracyTraining.targetMoveSpeed * Time.deltaTime), transform.position.y, transform.position.z);
             }
             else
             {
-                transform.position = new Vector3(transform.position.x - (RangeTraining.rangeTraining.targetMoveSpeed * Time.deltaTime), transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x - (AccuracyTraining.accuracyTraining.targetMoveSpeed * Time.deltaTime), transform.position.y, transform.position.z);
             }
         }
 
@@ -81,7 +81,7 @@ public class TargetBehaviour : MonoBehaviour {
     void RollForMoving()
     {
         float roll = Random.Range(0f, 1f);
-        if (roll < RangeTraining.rangeTraining.targetMoveChance)
+        if (roll < AccuracyTraining.accuracyTraining.targetMoveChance)
         {
             isMoving = true;
         }

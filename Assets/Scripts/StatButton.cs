@@ -6,7 +6,7 @@ public class StatButton : MonoBehaviour {
 
     public enum StatName
     {
-        Strength, Range, Block, Dodge, Critical, AvailableStatPoints, AvailableSkillPoints
+        Strength, Accuracy, Block, Dodge, Critical, AvailableStatPoints, AvailableSkillPoints
     }
 
     public StatName statIncrease;

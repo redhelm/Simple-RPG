@@ -13,7 +13,7 @@ public class Arrow : MonoBehaviour {
 
     IEnumerator ArrowHit()
     {
-        yield return new WaitForSeconds(RangeTraining.rangeTraining.arrowTravelTime);
+        yield return new WaitForSeconds(AccuracyTraining.accuracyTraining.arrowTravelTime);
         Collider2D hitCollider;
         bool hitSomething = false; // For debug message
         do

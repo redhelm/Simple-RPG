@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangeTraining : MonoBehaviour {
+public class AccuracyTraining : MonoBehaviour {
 
-    public static RangeTraining rangeTraining;
+    public static AccuracyTraining accuracyTraining;
 
     public GameObject arrow;
     public float arrowTravelTime;
@@ -24,7 +24,7 @@ public class RangeTraining : MonoBehaviour {
     
     void Awake()
     {
-        rangeTraining = this;
+        accuracyTraining = this;
     }
 
     // Use this for initialization

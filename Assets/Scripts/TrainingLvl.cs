@@ -7,7 +7,7 @@ public class TrainingLvl : MonoBehaviour {
 
     public enum StatName
     {
-        Vitality, Strength, Intelligence, Range, Block, Dodge, AvailablePoints
+        Vitality, Strength, Intelligence, Accuracy, Block, Dodge, AvailablePoints
     }
 
     public StatName statTraining;

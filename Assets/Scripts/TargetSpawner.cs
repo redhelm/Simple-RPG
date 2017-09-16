@@ -68,11 +68,11 @@ public class TargetSpawner : MonoBehaviour {
         {
             case 1:
                 spawnRate = startSpawnRate;
-                RangeTraining.rangeTraining.setMovingTargets(false);
+                AccuracyTraining.accuracyTraining.setMovingTargets(false);
                 break;
             case 2:
                 spawnRate = startSpawnRate * 0.8f;
-                RangeTraining.rangeTraining.setMovingTargets(true);
+                AccuracyTraining.accuracyTraining.setMovingTargets(true);
                 break;
             case 3:
                 spawnRate = startSpawnRate * 0.6f;
