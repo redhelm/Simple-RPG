@@ -64,26 +64,26 @@ public class StatDisplay : MonoBehaviour {
                 statValue = GameControl.player.playerStats.getMeleeDmg().ToString();
                 break;
             case "RangedChance":
-                statValue = (GameControl.player.playerStats.getRangedChance() * 100).ToString();
+                statValue = (GameControl.player.playerStats.getRangedChance() * 100).ToString("0.00");
                 statValue += "%";
                 break;
             case "RangedDmg":
                 statValue = GameControl.player.playerStats.getRangedDmg().ToString();
                 break;
             case "BlockChance":
-                statValue = (GameControl.player.playerStats.getBlockChance() * 100).ToString();
+                statValue = (GameControl.player.playerStats.getBlockChance() * 100).ToString("0.00");
                 statValue += "%";
                 break;
             case "BlockedDmg":
-                statValue = (GameControl.player.playerStats.getBlockedDmg() * 100).ToString();
+                statValue = (GameControl.player.playerStats.getBlockedDmg() * 100).ToString("0.00");
                 statValue += "%";
                 break;
             case "DodgeChance":
-                statValue = (GameControl.player.playerStats.getDodgeChance() * 100).ToString();
+                statValue = (GameControl.player.playerStats.getDodgeChance() * 100).ToString("0.00");
                 statValue += "%";
                 break;
             case "CriticalChance":
-                statValue = (GameControl.player.playerStats.getCriticalChance() * 100).ToString();
+                statValue = (GameControl.player.playerStats.getCriticalChance() * 100).ToString("0.00");
                 statValue += "%";
                 break;
         }

@@ -13,7 +13,10 @@ public class ProjectileBehavior : MonoBehaviour {
     private bool isDeflected = false;
     private Vector2 startPosition;
     private float deflectedTime;
-    private float destroyTime = 0.25f;
+    private float destroyTime = 0.35f;
+    private float timeSinceDeflected = 0f;
+    private float deflectedInitialSpeed = 20f;
+    private SpriteRenderer sprite;
 
     void Awake()
     {
@@ -24,7 +27,9 @@ public class ProjectileBehavior : MonoBehaviour {
 	void Start () {
         playerObj = GameObject.Find("PlayerObj");
         trainingLvl = TrainingLvl.trainingLvl;
-	}
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.color = new Color(1f, 1f, 1f, 1f);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -35,7 +40,14 @@ public class ProjectileBehavior : MonoBehaviour {
         }
         else
         {
-            transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), startPosition, (projectileSpeed * 1.5f)  * Time.deltaTime);
+            timeSinceDeflected += Time.deltaTime;
+            transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), startPosition, ((((-1 * deflectedInitialSpeed) / destroyTime) * timeSinceDeflected) + deflectedInitialSpeed) * Time.deltaTime);
+
+            if(timeSinceDeflected > 0.2f)
+            {
+                float time = timeSinceDeflected / destroyTime;
+                sprite.color = new Color(1f, 1f, 1f, Mathf.SmoothStep(1f, 0f, time));
+            }
 
             if ((Time.time - deflectedTime) > destroyTime)
             {
@@ -70,6 +82,9 @@ public class ProjectileBehavior : MonoBehaviour {
             }
             Destroy(gameObject);
         }
-        
+
+        Destroy(gameObject.GetComponent<Rigidbody2D>());
+        Destroy(gameObject.GetComponent<CircleCollider2D>());
+
     }
 }

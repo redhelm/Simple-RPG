@@ -17,8 +17,10 @@ public class TrainingRoomStats : MonoBehaviour {
     private int i_blockHighestCombo;
     private int i_rangeHighestCombo;
     
-    private int curDispalyedScore;
+    private int curDisplayedScore;
     private int remainingScore;
+
+    private float sceneStartTime;
 
 	// Use this for initialization
 	void Start () {
@@ -28,45 +30,30 @@ public class TrainingRoomStats : MonoBehaviour {
         blockHighestCombo.text = "x" + i_blockHighestCombo.ToString();
         rangeHighestCombo.text = "x" + i_rangeHighestCombo.ToString();
         
-        curDispalyedScore = 0;
+        curDisplayedScore = 0;
         
         Debug.Log("Points to increase: " + totalPointsIncreased);
 
-        if (totalPointsIncreased == 0)
+        if (totalPointsIncreased <= 0)
         {
             statsDisplayPanel.SetActive(false);
         }
+
+        sceneStartTime = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (statsDisplayPanel.activeSelf && totalPointsIncreased != 0)
         {
-            if (curDispalyedScore < totalPointsIncreased)
+            if (curDisplayedScore < totalPointsIncreased)
             {
-                remainingScore = totalPointsIncreased - curDispalyedScore;
-
-                calcTime = calcTime - Time.deltaTime;
-
-                if (calcTime < 0)
-                {
-                    calcTime = 0;
-                }
-
-                float increment = remainingScore / (calcTime / Time.deltaTime);
-
-                curDispalyedScore = (int)increment + curDispalyedScore;
-
-                if (curDispalyedScore > totalPointsIncreased)
-                {
-                    curDispalyedScore = totalPointsIncreased;
-                }
-
-                gainedScore.text = "+" + curDispalyedScore.ToString();
+                curDisplayedScore = (int)((totalPointsIncreased / calcTime) * (Time.time - sceneStartTime));
+                gainedScore.text = curDisplayedScore.ToString();
             }
             else
             {
-                totalPointsIncreased = 0;
+                curDisplayedScore = totalPointsIncreased;
             }
         }
 		

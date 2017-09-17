@@ -17,7 +17,7 @@ public class PlayerStats {
     private float rangedChance;
     private int rangedDmg;
     private float blockChance;
-    private float blockDmg;
+    private float blockedDmg;
     private float dodgeChance;
     private float criticalChance;
 
@@ -37,11 +37,11 @@ public class PlayerStats {
         dodge = 1;
         critical = 1;
 
-        availableStatPoints = 14;
+        availableStatPoints = 10000;
         availableSkillPoints = 3; //TODO: Remove. Only for debuging for now..
         heroLvl = 3; //TODO: Remove. Only for debuging for now..
 
-        blockDmg = 0f; // Default value. Increases based on shield equipped
+        blockedDmg = 0f; // Default value. Increases based on shield equipped
 
         CalculateHealth();
         CalculateMeleeDmg();
@@ -144,7 +144,7 @@ public class PlayerStats {
         int calculationFromBlock = (int)(block * 3.15f);
         int calculationFromDodge = (int)(dodge * 3.15f);
         int calculationFromCritical = (int)(critical * 3.15f);
-        health = calculationFromBlock + calculationFromDodge + 15; // Taking into account starting amount (15).
+        health = calculationFromBlock + calculationFromDodge + calculationFromCritical + 15; // Taking into account starting amount (15).
     }
 
     void CalculateMeleeDmg()
@@ -156,8 +156,7 @@ public class PlayerStats {
 
     void CalculateRangedChance()
     {
-        float calculation = (accuracy * 0.9f) * 0.000048f;
-        calculation += 0.07f; // Taking into account starting amount.
+        float calculation = Mathf.Sqrt((0.1849f / 10000f) * accuracy) + 0.07f; // 0.2025 = 0.45^2  (0.45 = capped value - start value of 0.07)
         if(calculation > 0.5f)
         {
             calculation = 0.5f;
@@ -169,14 +168,12 @@ public class PlayerStats {
     {
         int calculation = (int)(((accuracy * 0.9f) * 2f) * 0.8f);
         calculation += 15; // Taking into account starting amount.
-        Debug.Log(calculation);
         rangedDmg = calculation;
     }
 
     void CalculateBlockChance()
     {
-        float calculation = (block * 0.0003f) / 6;
-        calculation += 0.065f; // Taking into account starting amount.
+        float calculation = Mathf.Sqrt((0.2025f / 10000f) * block) + 0.05f; // 0.2025 = 0.45^2  (0.45 = capped value - start value of 0.05)
         if(calculation > 0.5f)
         {
             calculation = 0.5f;
@@ -186,19 +183,17 @@ public class PlayerStats {
 
     void CalculateDodgeChance()
     {
-        float calculation = (dodge * 0.9f) * 0.00004f;
-        calculation += 0.05f; // Taking into account starting amount.
-        if (calculation > 0.40f)
+        float calculation = Mathf.Sqrt((0.1225f / 10000f) * dodge) + 0.05f; // 0.1225 = 0.35^2  (0.35 = capped value - start value of 0.05)
+        if (calculation > 0.4f)
         {
-            calculation = 0.40f;
+            calculation = 0.4f;
         }
         dodgeChance = calculation;
     }
 
     void CalculateCriticalChance()
     {
-        float calculation = (critical * 0.9f) * 0.00003f;
-        calculation += 0.03f; // Taking into account starting amount.
+        float calculation = Mathf.Sqrt((0.0729f / 10000f) * critical) + 0.05f; // 0.0.0729 = 0.27^2  (0.27 = capped value - start value of 0.03)
         if (calculation > 0.3f)
         {
             calculation = 0.3f;
@@ -281,7 +276,7 @@ public class PlayerStats {
     }
     public float getBlockedDmg()
     {
-        return blockDmg;
+        return blockedDmg;
     }
     public float getDodgeChance()
     {
