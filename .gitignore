@@ -37,4 +37,5 @@ sysinfo.txt
 /Assets/Standard Assets*
 
 #Vendored
+$ cat .gitattributes
 .aspx linguist-vendored
