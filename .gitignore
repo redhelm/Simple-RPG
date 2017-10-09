@@ -35,3 +35,6 @@ sysinfo.txt
 
 #Anything from Standard Assets
 /Assets/Standard Assets*
+
+#Vendored
+.aspx linguist-vendored
