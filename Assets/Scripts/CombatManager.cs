@@ -9,95 +9,124 @@ public class CombatManager : MonoBehaviour {
     public float maxTurnTime;
     public float rangedChance;
     public float rangedAttackTime;
+    public Animator playerAnimator;
+    public Animator enemyAnimator;
 
     private float nextTurnTime;
     private bool playersTurn = false;
     private bool hasRolledForRanged = false;
     private bool attackingRanged = false;
-    private float rangeAttackEnd;
+
+    private bool playerHasAttacked;
+    private bool enemyHasAttacked;
 
 	// Use this for initialization
+    void Awake()
+    {
+        combatManager = this;
+    }
+
 	void Start () {
         playersTurn = true;
-        nextTurnTime = Time.time + maxTurnTime;
+        playerHasAttacked = false;
+        enemyHasAttacked = false;
+        nextTurnTime = Time.time;
         Debug.Log("------ Player's Turn --------");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (attackingRanged)
-        {
-            if (Time.time > rangeAttackEnd)
-            {
-                attackingRanged = false;
-                Debug.Log("Player's Range Attack Ends!..");
-            }
-        }
-
-        if (Time.time > nextTurnTime)
-        {
-            if (playersTurn)
-            {
-                playersTurn = false;
-                Debug.Log("------ Enemy's Turn --------");
-            }
-            else
-            {
-                playersTurn = true;
-                hasRolledForRanged = false;
-                Debug.Log("------ Player's Turn --------");
-            }
-
-            nextTurnTime = Time.time + maxTurnTime;
-        }
-
-        if (playersTurn)
+        
+        if (playersTurn && Time.time >= nextTurnTime)
         {
             if (!hasRolledForRanged)
             {
-                if (RollForRanged())
-                {
-                    // Range attack animation
-                    Debug.Log("Player does Range Attack! >>>>>>>>");
-                    RangeAttack();
-                }
-                hasRolledForRanged = true;
+                RollForRanged();
             }
 
-
-            //Give time for player skill selection.
-
             //Player attack animation
+            if (!playerHasAttacked && !attackingRanged)
+            {
+                PlayerAttack();
+            }
         }
-        else
+        else if (!playersTurn && Time.time >= nextTurnTime)
         {
-            //Enemy's attack turn
-            EnemyAttack();
+            if (!enemyHasAttacked)
+            {
+                EnemyAttack();
+            }
         }
 
 	}
 
-    bool RollForRanged()
+    public void EndTurn()
+    {
+        if (playersTurn)
+        {
+            playersTurn = false;
+            playerHasAttacked = false;
+            Debug.Log("------ Enemy's Turn --------");
+        }
+        else
+        {
+            playersTurn = true;
+            enemyHasAttacked = false;
+            hasRolledForRanged = false;
+            Debug.Log("------ Player's Turn --------");
+        }
+
+        nextTurnTime = Time.time + maxTurnTime;
+    }
+
+    void RollForRanged()
     {
         float roll = Random.Range(0f , 1f);
 
         if (roll <= rangedChance)
         {
-            return true;
+            PlayerRangedAttack();
         }
-
-        return false;
+        hasRolledForRanged = true;
+        
     }
 
-    void RangeAttack()
+    void PlayerAttack()
+    {
+        playerAnimator.SetTrigger("Attack");
+        playerHasAttacked = true;
+    }
+
+    void PlayerRangedAttack()
     {
         attackingRanged = true;
-        rangeAttackEnd = Time.time + rangedAttackTime;
+        playerAnimator.SetTrigger("Ranged");
+    }
+
+    public void EndRangedAttack()
+    {
+        attackingRanged = false;
     }
 
     void EnemyAttack()
     {
-        // Enemy Attack rolls, etc.
+        enemyAnimator.SetTrigger("Attack");
+        enemyHasAttacked = true;
     }
+
+    public void PlayerStandardAttackDamage()
+    {
+        Debug.Log("....{{DAMAGE TO ENEMEY}}");
+    }
+
+    public void PlayerRangedAttackDamage()
+    {
+        Debug.Log("....{{RANGED DAMAGE TO ENEMEY}}");
+    }
+
+    public void EnemyStandardAttackDamage()
+    {
+        Debug.Log("....{{DAMAGE TO PLAYER}}");
+    }
+
 }
