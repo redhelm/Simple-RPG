@@ -38,4 +38,4 @@ sysinfo.txt
 
 #Vendored
 $ cat .gitattributes
-.aspx linguist-vendored
+*.aspx linguist-vendored
