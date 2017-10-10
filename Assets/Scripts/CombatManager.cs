@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour {
 
@@ -11,7 +12,23 @@ public class CombatManager : MonoBehaviour {
     public float rangedAttackTime;
     public Animator playerAnimator;
     public Animator enemyAnimator;
+    public Image playerHealthBar;
+    public Text playerHealthText;
+    public Image enemyHealthBar;
+    public Text enemyHealthText;
+    public Text playerDmgText;
+    public Text enemyDmgText;
+    public Canvas gameCanvas;
 
+    private int p_Health;
+    private int p_MaxHealth;
+    private int e_Health;
+    private int e_MaxHealth;
+
+    private int p_MeleeDmg;
+    private int p_RangedDmg;
+    private int e_MeleeDmg;
+    
     private float nextTurnTime;
     private bool playersTurn = false;
     private bool hasRolledForRanged = false;
@@ -26,7 +43,19 @@ public class CombatManager : MonoBehaviour {
         combatManager = this;
     }
 
-	void Start () {
+	void Start ()
+    {
+        PlayerStats playerInfo = GameControl.player.playerStats;
+
+        p_MaxHealth = playerInfo.getHealth();
+        p_Health = p_MaxHealth;
+        p_MeleeDmg = playerInfo.getMeleeDmg(); // TODO: Take into account weapon damage.
+        p_RangedDmg = playerInfo.getRangedDmg();
+
+        e_MaxHealth = 50;
+        e_Health = e_MaxHealth;
+        e_MeleeDmg = 5;
+
         playersTurn = true;
         playerHasAttacked = false;
         enemyHasAttacked = false;
@@ -35,7 +64,13 @@ public class CombatManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        UpdateHealthUI();
+
+        if (Input.GetKeyDown("s")) {
+            p_Health = Mathf.Clamp(p_Health - 20, 0, p_MaxHealth);
+        }
         
         if (playersTurn && Time.time >= nextTurnTime)
         {
@@ -43,8 +78,7 @@ public class CombatManager : MonoBehaviour {
             {
                 RollForRanged();
             }
-
-            //Player attack animation
+            
             if (!playerHasAttacked && !attackingRanged)
             {
                 PlayerAttack();
@@ -77,6 +111,19 @@ public class CombatManager : MonoBehaviour {
         }
 
         nextTurnTime = Time.time + maxTurnTime;
+    }
+
+    void UpdateHealthUI()
+    {
+        //Player Health UI
+        float fillAmount = (float)p_Health / p_MaxHealth;
+        playerHealthBar.fillAmount = Mathf.Lerp(playerHealthBar.fillAmount, fillAmount, Time.deltaTime * 8);
+        playerHealthText.text = p_Health.ToString() + " / " + p_MaxHealth.ToString();
+
+        //Enemy Health UI
+        fillAmount = (float)e_Health / e_MaxHealth;
+        enemyHealthBar.fillAmount = Mathf.Lerp(enemyHealthBar.fillAmount, fillAmount, Time.deltaTime * 8);
+        enemyHealthText.text = e_Health.ToString() + " / " + e_MaxHealth.ToString();
     }
 
     void RollForRanged()
@@ -116,17 +163,29 @@ public class CombatManager : MonoBehaviour {
 
     public void PlayerStandardAttackDamage()
     {
-        Debug.Log("....{{DAMAGE TO ENEMEY}}");
+        int dmg = p_MeleeDmg;
+        e_Health = Mathf.Clamp(e_Health - dmg, 0, e_MaxHealth); //Probably don't need the clamp if we add Death logic? eh..
+        Debug.Log("....{{ " + dmg + " DAMAGE TO ENEMEY }}");
+        Text obj = Instantiate(enemyDmgText, gameCanvas.transform);
+        obj.text = dmg.ToString();
     }
 
     public void PlayerRangedAttackDamage()
     {
-        Debug.Log("....{{RANGED DAMAGE TO ENEMEY}}");
+        int dmg = p_RangedDmg;
+        e_Health = Mathf.Clamp(e_Health - dmg, 0, e_MaxHealth);
+        Debug.Log("....{{ " + dmg + " RANGED DAMAGE TO ENEMEY }}");
+        Text obj = Instantiate(enemyDmgText, gameCanvas.transform);
+        obj.text = dmg.ToString();
     }
 
     public void EnemyStandardAttackDamage()
     {
-        Debug.Log("....{{DAMAGE TO PLAYER}}");
+        int dmg = e_MeleeDmg;
+        p_Health = Mathf.Clamp(p_Health - dmg, 0, p_MaxHealth);
+        Debug.Log("....{{ " + dmg + " DAMAGE TO PLAYER }}");
+        Text obj = Instantiate(playerDmgText, gameCanvas.transform);
+        obj.text = dmg.ToString();
     }
 
 }
